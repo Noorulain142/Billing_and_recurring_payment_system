@@ -1,0 +1,24 @@
+<%# <div class="container " style="position: relative"> %>
+  <%=  form_for ([@plan, feature]),remote: true do |f| %>
+    <p>
+      <label>Name <span class= 'required'></span></label>
+      <%= f.text_field :name, presence: true, length: { minimum: 4 } %>
+    </p>
+    <p>
+      <label>code<span class= 'required' ></span></label>
+      <%= f.text_field :code, presence: true %>
+    </p>
+    <br>
+    <p>
+      <label>unit price <span class= 'required' ></span></label>
+      <%= f.text_field :unit_price, presence: true %>
+    </p>
+    <p>
+      <label>max unit limit<span class= 'required' ></span></label>
+      <%= f.text_field :max_unit_limit, presence: true, length: { minimum: 4 } %>
+    </p>
+    <p>
+      <%= f.submit 'Add Feature' , class: 'button-10'%>
+    </p>
+  <% end %>
+<%# </div> %>

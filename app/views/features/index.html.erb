@@ -1,0 +1,33 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Features</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Code</th>
+      <th>Unit price</th>
+      <th>Max unit limit</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @features.each do |feature| %>
+      <tr>
+        <td><%= feature.name %></td>
+        <td><%= feature.code %></td>
+        <td><%= feature.unit_price %></td>
+        <td><%= feature.max_unit_limit %></td>
+        <td><%= link_to 'Show', plan_feature_path(feature) %></td>
+        <td><%= link_to 'Edit', edit_feature_path(feature) %></td>
+        <td><%= link_to 'Destroy', feature, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Feature', new_feature_path %>

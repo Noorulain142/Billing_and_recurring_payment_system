@@ -1,0 +1,12 @@
+<p id='notice'><%= notice %></p>
+<div class='container'>
+  <table class='table table-hover plan-table'>
+    <thead class='thead'>
+      <tr>
+        <th>Name</th>
+        <th colspan='1'></th>
+      </tr>
+    </thead>
+    <%= render partial: 'subscribed_users',  collection: @subscribed_users, as: :user %>
+  </table>
+  <%= link_to button_tag('Back', class: 'btn btn-dark'), plan_path(@lan) %>

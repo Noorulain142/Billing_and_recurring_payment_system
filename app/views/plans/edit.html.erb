@@ -1,0 +1,10 @@
+<%= render 'devise/shared/navbar'%>
+<div class="container">
+<h1>Editing Plan</h1>
+
+<%= render 'form', plan: @plan %>
+
+<%= link_to button_tag('Show plan', class: 'btn btn-dark float-left'),@plan %>
+<%= link_to button_tag('Back', class: 'btn btn-dark float-left'),plans_path %>
+
+<div>
