@@ -6,7 +6,7 @@ class Plan < ApplicationRecord
   has_many :features, dependent: :destroy
 
   validates :name, :monthly_fee, presence: true
-  def get_user
-    @subscribed_users = Users.all
+  def find_user
+    @subscribed_users = users.all
   end
 end

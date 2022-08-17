@@ -2,7 +2,6 @@
 
 class PlansController < ApplicationController
   before_action :set_plan, only: %i[show edit update destroy subscribe unsubscribe]
-  # before_action :set_user, only: %i[subscribe]
 
   def index
     @plans = Plan.all
@@ -48,8 +47,8 @@ class PlansController < ApplicationController
     redirect_to plan_url, notice: 'Plan was successfully unsubscribed' if current_user.plans.destroy(@plan)
   end
 
-  def Users
-    @subscribed_users = @plan.get_user
+  def users
+    @subscribed_users = @plan.find_user
   end
 
   private

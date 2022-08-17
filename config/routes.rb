@@ -1,13 +1,12 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-
   resources :plans do
     resources :features
-      member do
-        get :subscribe
-        get :unsubscribe
-      end
+    member do
+      get :subscribe
+      get :unsubscribe
+    end
   end
   devise_for :users
   # devise_for :users, controllers: { registrations: 'users/registrations' }
