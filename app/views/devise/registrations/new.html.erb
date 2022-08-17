@@ -6,10 +6,15 @@
     <div class="field form-group">
         <%= f.select :usertype, options_for_select([["Admin", "Admin"],["Buyer","Buyer"]]) %>
     </div>
-<%# <% @current_user.where(usertype:"Admin")%>
-    <%= render 'devise/shared/signupform' %>
-    <%# <%= render 'devise/shared/form' %>
+
+    <%if User.where(usertype:"Admin")%>
+      <%= render 'devise/shared/signupform' %>
+    <%elsif User.where(usertype:"Buyer")%>
+      <%# <%= render 'devise/shared/form'%>
+    <%end%>
   <%end%>
+
+
   <%# <%= users = User.where(usertype: admin).pluck(:admin)%>
   <%# <%=user.select(:usertype).where(usertype: admin)%>
   <br/>

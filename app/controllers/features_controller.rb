@@ -17,7 +17,7 @@ class FeaturesController < ApplicationController
   def edit; end
 
   def create
-    @feature = @plan.features.new(feature_params)
+    @feature = @plan.features.build(feature_params)
     authorize @feature
     if @feature.save
       redirect_to @plan, notice: 'Feature was successfully created.'
@@ -38,7 +38,11 @@ class FeaturesController < ApplicationController
 
   def destroy
     authorize @feature
-    redirect_to @plan, notice: 'Feature was successfully destroyed.' if @feature.destroy
+    if @feature.destroy
+      redirect_to @plan, notice: 'Feature was successfully destroyed.'
+    else
+      render 'show'
+    end
   end
 
   private

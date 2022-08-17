@@ -30,13 +30,17 @@ class PlansController < ApplicationController
     if @plan.update(plan_params)
       redirect_to plan_url(@plan), notice: 'Plan was successfully updated.'
     else
-      redirect_to plan_url(@plan), notice: 'Plan was not updated.'
+      render :edit, notice: 'Plan was not updated'
     end
   end
 
   def destroy
     authorize @plan
-    redirect_to plans_url, notice: 'Plan was successfully destroyed.' if @plan.destroy
+    if @plan.destroy
+      redirect_to plans_url, notice: 'Plan was successfully destroyed.'
+    else
+      redirect_to @plan, notice: 'plan was not successfully destroyed.'
+    end
   end
 
   def subscribe
@@ -63,5 +67,13 @@ class PlansController < ApplicationController
 
   def plan_params
     params.require(:plan).permit(:monthly_fee, :name)
+  end
+
+  private def delete_plan
+    @stripe_prod_id = @plan.stripe_plan_id
+    @stripe_price_id = @plan.price_id
+    yield
+    #Strip::Price.delete(@stripe_price_id)
+    Stripe::Product.update(@stripe_prod_id,active: 'false')
   end
 end

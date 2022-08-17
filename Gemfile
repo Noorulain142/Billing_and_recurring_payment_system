@@ -77,3 +77,4 @@ gem 'pundit', '~> 2.2'
 gem 'simple_form'
 gem 'tether-rails'
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
+gem 'stripe'
