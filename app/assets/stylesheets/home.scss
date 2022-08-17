@@ -1,0 +1,35 @@
+// Place all the styles related to the Home controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+body {
+  background-color: #fff;
+  color: #333;
+  margin: 33px;
+  font-family: verdana, arial, helvetica, sans-serif;
+  font-size: 13px;
+  line-height: 18px;
+}
+.container {
+  position:absolute;
+  top:50%;
+  left:50%;
+  transform: translate(-50%, -50%);
+  width:400px;
+  border-radius: 10px;
+  font-family: verdana, arial, helvetica, sans-serif;
+  background-color:#B88D92;
+
+  .btn {
+    background-color:#253D5B;
+  }
+}
+
+#notice {
+  color: green;
+}
+
+.navbar-brand{
+  text-transform: capitalize;
+  font-family: Times New Roman;
+
+}

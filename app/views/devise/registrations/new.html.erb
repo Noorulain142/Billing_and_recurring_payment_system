@@ -1,0 +1,23 @@
+<div class="container" style="background-color:#C4CAD0">
+  <h2>Sign up </h2>
+  <br/>
+  <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+    <%= render "devise/shared/error_messages", resource: resource %>
+    <div class="field form-group">
+        <%= f.select :usertype, options_for_select([["Admin", "Admin"],["Buyer","Buyer"]]) %>
+    </div>
+
+    <%if User.where(usertype:"Admin")%>
+      <%= render 'devise/shared/signupform' %>
+    <%elsif User.where(usertype:"Buyer")%>
+      <%# <%= render 'devise/shared/form'%>
+    <%end%>
+  <%end%>
+
+
+  <%# <%= users = User.where(usertype: admin).pluck(:admin)%>
+  <%# <%=user.select(:usertype).where(usertype: admin)%>
+  <br/>
+  <%= render "devise/shared/links" %>
+</div>
+
