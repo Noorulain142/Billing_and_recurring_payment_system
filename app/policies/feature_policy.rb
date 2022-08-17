@@ -13,23 +13,25 @@ class FeaturePolicy < ApplicationPolicy
     @plan = plan
   end
 
+  
+
   def new?
-    @user.usertype == 'Admin'
+    admin?
   end
 
   def create?
-    @user.usertype == 'Admin'
+    admin?
   end
 
   def update?
-    @user.usertype == 'Admin'
+    admin?
   end
 
   def edit?
-    @user.usertype == 'Admin'
+    admin?
   end
 
   def destroy?
-    @user.usertype == 'Admin'
+    admin?
   end
 end

@@ -38,13 +38,12 @@
 <br>
 <% if policy(@plan).subscribe_plan?%>
   <% if !params[:id].presence || current_user.id%>
-    <%# <%= link_to button_tag('Subscribe', class: 'btn btn-dark float-left'),subscribe_plan_path(@plan) %> %>
-    <%=button_to 'Subscribe',checkout_create_path, method: :post, params: {id: @plan.id}%>
+    <%= link_to button_tag('Subscribe', class: 'btn btn-dark float-left'),subscribe_plan_path(@plan) %>
   <%end %>
 <%end %>
 
 <% if policy(@plan).unsubscribe_plan? %>
-
+  <%= link_to button_tag('Unsubscribe', class: 'btn btn-dark float-left'),unsubscribe_plan_path(@plan) %>
 <%end%>
 <%= link_to button_tag('Back', class: 'btn btn-dark float-left'),plans_path %>
 

@@ -8,6 +8,14 @@ class ApplicationPolicy
     @record = record
   end
 
+  def admin?
+    @user.usertype == 'Admin'
+  end
+
+  def buyer?
+    @user.usertype == 'Buyer'
+  end
+
   def index?
     false
   end

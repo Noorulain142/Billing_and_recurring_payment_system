@@ -14,30 +14,30 @@ class PlanPolicy < ApplicationPolicy
   end
 
   def new?
-    @user.usertype == 'Admin'
+    admin?
   end
 
   def create?
-    @user.usertype == 'Admin'
+    admin?
   end
 
   def update?
-    @user.usertype == 'Admin'
+    admin?
   end
 
   def edit?
-    @user.usertype == 'Admin'
+    admin?
   end
 
   def destroy?
-    @user.usertype == 'Admin'
+    admin?
   end
 
   def subscribe_plan?
-    @user.usertype == 'Buyer'
+    buyer?
   end
 
   def unsubscribe_plan?
-    @user.usertype == 'Buyer'
+    buyer?
   end
 end

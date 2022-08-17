@@ -41,7 +41,7 @@ class FeaturesController < ApplicationController
     if @feature.destroy
       redirect_to @plan, notice: 'Feature was successfully destroyed.'
     else
-      render 'show'
+      render :show
     end
   end
 
