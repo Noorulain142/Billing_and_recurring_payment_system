@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
+  get 'members/dashboard'
   resources :plans do
     resources :features
     member do
@@ -8,13 +9,24 @@ Rails.application.routes.draw do
       get :unsubscribe
     end
   end
-  scope '/checkout' do
-    post 'create', to: 'checkout#create', as: 'checkout_create'
-    get 'cancel', to: 'checkout#cancel', as: 'checkout_cancel'
-    get 'success', to: 'checkout#success', as: 'checkout_success'
-  end
   devise_for :users
   # devise_for :users, controllers: { registrations: 'users/registrations' }
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
-  root to: 'home#index'
+  root to: 'plans#index'
+
+  # resources :features do
+  #   resources :subscriptions
+  # end
+
+  scope controller: :static do
+    get :pricing
+  end
+
+  resources :billings, only: :create
+  namespace :purchase do
+    resources :checkouts
+  end
+  get 'success', to: 'purchase/checkouts#success'
+  resources :subscriptions
+  resources :webhooks, only: :create
 end

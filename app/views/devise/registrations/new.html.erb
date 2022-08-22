@@ -1,23 +1,44 @@
-<div class="container" style="background-color:#C4CAD0">
-  <h2>Sign up </h2>
-  <br/>
-  <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-    <%= render "devise/shared/error_messages", resource: resource %>
-    <div class="field form-group">
-        <%= f.select :usertype, options_for_select([["Admin", "Admin"],["Buyer","Buyer"]]) %>
-    </div>
+<div class="container" >
+  <div class="center">
+    <h2>Sign up </h2>
+    <br/>
+    <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+      <%= render "devise/shared/error_messages", resource: resource %>
+      <div class="field form-group">
+          <%= f.select :usertype, options_for_select([["Admin", "Admin"]]) %>
+      </div>
+        <br>
 
-    <%if User.where(usertype:"Admin")%>
-      <%= render 'devise/shared/signupform' %>
-    <%elsif User.where(usertype:"Buyer")%>
-      <%# <%= render 'devise/shared/form'%>
+      <div class="field form-group">
+          <%= f.label :name %><br />
+          <%= f.text_field :name,class:"form-control",placeholder:"Name", autofocus: true, autocomplete: "name" %>
+      </div>
+
+      <div class="field form-group">
+        <%= f.label :email %><br />
+        <%= f.email_field :email,class:"form-control",placeholder:"Email", autofocus: true, autocomplete: "email" %>
+      </div>
+
+      <div class="field form-group">
+        <%= f.label :password %>
+        <% if @minimum_password_length %>
+        <em>(<%= @minimum_password_length %> characters minimum)</em>
+        <% end %><br />
+        <%= f.password_field :password,class:"form-control",placeholder:"Password", autocomplete: "new-password" %>
+      </div>
+      <div class="field form-group">
+        <%= f.label :password_confirmation %><br />
+        <%= f.password_field :password_confirmation,class:"form-control",placeholder:"Password Confirmation ", autocomplete: "new-password" %>
+      </div>
+      <div class="field form-group">
+      <%= f.file_field :avatar %>
+        <%image_tag(resource.avatar) if resource.avatar.attached?%>
+      </div>
+      <div class="actions">
+        <%= f.submit "Sign up" , class:"btn btn-secondary"%>
+      </div>
     <%end%>
-  <%end%>
-
-
-  <%# <%= users = User.where(usertype: admin).pluck(:admin)%>
-  <%# <%=user.select(:usertype).where(usertype: admin)%>
-  <br/>
-  <%= render "devise/shared/links" %>
+    <br/>
+    <%= render "devise/shared/links" %>
+  </div>
 </div>
-

@@ -1,49 +1,48 @@
 <%= render 'devise/shared/navbar'%>
-<p>
-  <strong>Name:</strong>
-  <%= @plan.name %>
-</p>
-<p>
-  <strong>Monthly Fee:</strong>
-  <%= @plan.monthly_fee %>
-</p>
-<p>
-<strong>Present Features</strong>
-    <% @plan.features.each do |feature| %>
-      <tr>
-        <p>Name:
-        <%= feature.name %></p>
-        <p>Code:
-        <%= feature.code %></p>
-        <p>Unit price:
-        <%= feature.unit_price %></p>
-        <p>Max unit limit:
-        <%= feature.max_unit_limit %></p>
-        <p>
-        <% if policy(feature).edit?%>
-          <%= link_to button_tag('Edit feature', class: 'btn btn-dark float-left'),edit_plan_feature_path(@plan,feature) %>
-        <% end %>
-        </p>
-        <p>
-        <% if policy(feature).destroy?%>
-          <%= button_to [@plan,feature], method: :delete, data: { confirm: 'Are you sure you want to delete this feature?' },
-                                 class: 'btn btn-danger' do %>
-                  Delete Feature
-              <% end %>
-        <% end %></p>
-      </tr>
-      <br>
-<%end%>
-</p>
 <br>
-<% if policy(@plan).subscribe_plan?%>
-  <% if !params[:id].presence || current_user.id%>
-    <%= link_to button_tag('Subscribe', class: 'btn btn-dark float-left'),subscribe_plan_path(@plan) %>
-  <%end %>
-<%end %>
+<p>
+  <div class="plan",style="background-color:#577399">
+  <h5><strong>Name:<%= @plan.name %></strong>
 
-<% if policy(@plan).unsubscribe_plan? %>
-  <%= link_to button_tag('Unsubscribe', class: 'btn btn-dark float-left'),unsubscribe_plan_path(@plan) %>
-<%end%>
-<%= link_to button_tag('Back', class: 'btn btn-dark float-left'),plans_path %>
+  <br></h5>
+  <h5><strong>Monthly Fee:<%= @plan.monthly_fee %></strong>
+  </h5>
+  </div>
+
+</p>
+<%# <p> %>
+  <%# <strong>Billing day:</strong> %>
+  <%# <%= @plan.billing_day %>
+<%# </p> %>
+
+
+<%= render 'features' %>
+<%= link_to button_tag('Back', class:"btn btn-primary btn-sm ",style:"background-color: #C84630"),plans_path %>
+<%# <% if policy(@plan).subscribe_plan?%>
+  <%# <% if !params[:id].presence || current_user.id%>
+    <%# <% if !@plan.users.where(id: current_user.id).present?%>
+      <%# <%= link_to 'Subscribe', purchase_checkouts_path, class: 'btn btn-dark float-left', method: :post%>
+      <%# <input type="hidden" <% @plan.id%>
+    <%# <%#=button_to 'Subscribe',checkout_create_path, method: :post, params: {id: @plan.id}%>
+    <%# <%end %>
+  <%# <%end %>
+<%# <%end %>
+
+<%# <%= form_tag purchase_checkouts_path, method: :post, data: { %>
+                        <%# turbo: false %>
+<%# } do %>
+  <%# <input type="hidden" name="price_id" value=<%= @plan.price_id%>
+  <%# <input type="hidden" name="plan_id" value=<%= @plan.id %>
+  <%# <input type=“submit” value=“Subscribe” class=“btn btn-primary”> %>
+  <%# <button type="submit">Subscribe</button> %>
+<%# <% end %>
+
+
+<%# <% if policy(@plan).unsubscribe_plan? %>
+  <%# <% if @plan.users.where(id: current_user.id).present?%>
+    <%# <%= link_to button_tag('Unsubscribe', class: 'btn btn-dark float-left'),unsubscribe_plan_path(@plan) %>
+  <%# <%end%>
+<%# <%end%>
+
+
 

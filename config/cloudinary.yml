@@ -1,0 +1,25 @@
+development:
+  cloud_name: dol7sxbjz
+  api_key: 358653244445271
+  api_secret: 77JMLOxc5u2iDYOysTwdmpGDSv4
+  enhance_image_tag: true
+  static_file_support: false
+production:
+  cloud_name: dol7sxbjz
+  api_key: 358653244445271
+  api_secret: 77JMLOxc5u2iDYOysTwdmpGDSv4
+  enhance_image_tag: true
+  static_file_support: true
+test:
+  cloud_name: dol7sxbjz
+  api_key: 358653244445271
+  api_secret: 77JMLOxc5u2iDYOysTwdmpGDSv4
+  enhance_image_tag: true
+  static_file_support: false
+
+
+
+
+
+
+

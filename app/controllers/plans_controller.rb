@@ -1,10 +1,12 @@
 # frozen_string_literal: true
 
 class PlansController < ApplicationController
+  # before_action :set_user, only: [:index]
   before_action :set_plan, only: %i[show edit update destroy subscribe unsubscribe]
 
   def index
     @plans = Plan.all
+    @pagy, @plans = pagy(Plan.all, items: 2)
   end
 
   def show; end
@@ -17,11 +19,23 @@ class PlansController < ApplicationController
 
   def create
     @plan = Plan.new(plan_params)
-    authorize @plan
+    product = Stripe::Product.create({ name: @plan.name })
+    price = Stripe::Price.create({
+                                   unit_amount: @plan.monthly_fee,
+                                   currency: 'usd',
+                                   recurring: { interval: 'month' },
+                                   product: 'prod_MGg4N0AGxvjqSy'
+                                 })
+    @plan.product_id = product.id
+    @plan.price_id = price.id
     if @plan.save
-      redirect_to plan_url(@plan), notice: 'Plan was successfully created.'
-    else
-      render :new, notice: 'Plan was not created.'
+      redirect_to plan_url(@plan), allow_other_host: true
+      # authorize @plan
+
+      # if @plan.save
+      #   redirect_to plan_url(@plan), notice: 'Plan was successfully created.'
+      # else
+      #   render :new, notice: 'Plan was not created.'
     end
   end
 
@@ -66,6 +80,14 @@ class PlansController < ApplicationController
   end
 
   def plan_params
-    params.require(:plan).permit(:monthly_fee, :name)
+    params.require(:plan).permit(:monthly_fee, :name, :billing_day)
+  end
+
+  def delete_plan
+    @stripe_prod_id = @plan.stripe_plan_id
+    @stripe_price_id = @plan.price_id
+    yield
+    # Strip::Price.delete(@stripe_price_id)
+    Stripe::Product.update(@stripe_prod_id, active: 'false')
   end
 end
