@@ -1,4 +1,4 @@
-<div class="container ">
+<div class="container "style="Background-color:#577399">
   <%=  form_for ([@plan, feature]),remote: true do |f| %>
     <div class="field form-group">
       <%= f.label :name %><br />
@@ -14,16 +14,23 @@
     <div class="field form-group">
       <%= f.label :unit_price %><br />
       <%# <label>unit price <span class= 'required' ></span></label> %>
-      <%= f.text_field :unit_price,class:"form-control",placeholder:"Name", presence: true %>
+      <%= f.text_field :unit_price,class:"form-control",placeholder:"Unit Price", presence: true %>
     </div>
     <div class="field form-group">
        <%= f.label :max_unit_limit %><br />
-      <%= f.text_field :max_unit_limit,class:"form-control",placeholder:"Name", presence: true, length: { minimum: 4 } %>
+      <%= f.text_field :max_unit_limit,class:"form-control",placeholder:"Max Unit Limit", presence: true, length: { minimum: 4 } %>
     </div>
-    <p>
-      <%= f.submit 'Add Feature' , class: 'button-10'%>
-    </p>
+    <div class='field form-group'>
+    <%= f.label :usage_value, class: 'col-form-label col-md-2' %><br />
+    <%= f.text_field :usage_value, class: 'form-control',placeholder:"Usage Value", presence: true, length: { minimum: 4 } %>
+   </div>
+   <br>
+    <div class='field form-group'>
+      <%= f.submit 'Add Feature' , class: 'btn btn-primary btn-sm',style:"background-color: #C84630"%>
+
   <% end %>
+  <%= link_to button_tag('Back', class:"btn btn-primary btn-sm ",style:"background-color: #C84630" ),plans_path %>
+
+  </div>
   <br>
-  <%= link_to button_tag('Back', class: 'btn btn-dark float-left' ),plans_path %>
 </div>

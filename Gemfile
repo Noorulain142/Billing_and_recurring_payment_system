@@ -75,6 +75,8 @@ gem 'pagy'
 gem 'popper_js'
 gem 'pundit', '~> 2.2'
 gem 'simple_form'
-gem 'tether-rails'
-gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 gem 'stripe'
+gem 'tether-rails'
+gem 'twitter-bootstrap-rails'
+gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
+gem 'cloudinary'

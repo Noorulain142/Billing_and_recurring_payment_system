@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_08_16_044146) do
+ActiveRecord::Schema.define(version: 2022_08_21_104816) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -36,13 +36,13 @@ ActiveRecord::Schema.define(version: 2022_08_16_044146) do
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
   end
 
-  create_table "buyer_plans", force: :cascade do |t|
+  create_table "feature_subscriptions", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "plan_id"
-    t.bigint "user_id"
-    t.index ["plan_id"], name: "index_buyer_plans_on_plan_id"
-    t.index ["user_id"], name: "index_buyer_plans_on_user_id"
+    t.bigint "subscription_id"
+    t.bigint "features_id"
+    t.index ["features_id"], name: "index_feature_subscriptions_on_features_id"
+    t.index ["subscription_id"], name: "index_feature_subscriptions_on_subscription_id"
   end
 
   create_table "features", force: :cascade do |t|
@@ -53,6 +53,7 @@ ActiveRecord::Schema.define(version: 2022_08_16_044146) do
     t.bigint "plan_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.decimal "usage_value"
     t.index ["plan_id"], name: "index_features_on_plan_id"
   end
 
@@ -61,6 +62,24 @@ ActiveRecord::Schema.define(version: 2022_08_16_044146) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "product_id"
+    t.string "price_id"
+  end
+
+  create_table "subscriptions", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "plan_id"
+    t.bigint "user_id"
+    t.date "billing_day"
+    t.string "status"
+    t.datetime "current_period_start"
+    t.datetime "current_period_end"
+    t.string "customer_id"
+    t.string "interval"
+    t.string "subscription_id"
+    t.index ["plan_id"], name: "index_subscriptions_on_plan_id"
+    t.index ["user_id"], name: "index_subscriptions_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -77,12 +96,26 @@ ActiveRecord::Schema.define(version: 2022_08_16_044146) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "usertype"
+    t.string "stripe_id"
+    t.string "invitation_token"
+    t.datetime "invitation_created_at"
+    t.datetime "invitation_sent_at"
+    t.datetime "invitation_accepted_at"
+    t.integer "invitation_limit"
+    t.string "invited_by_type"
+    t.bigint "invited_by_id"
+    t.integer "invitations_count", default: 0
     t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["invitation_token"], name: "index_users_on_invitation_token", unique: true
+    t.index ["invited_by_id"], name: "index_users_on_invited_by_id"
+    t.index ["invited_by_type", "invited_by_id"], name: "index_users_on_invited_by_type_and_invited_by_id"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
-  add_foreign_key "buyer_plans", "plans"
-  add_foreign_key "buyer_plans", "users"
+  add_foreign_key "feature_subscriptions", "features", column: "features_id"
+  add_foreign_key "feature_subscriptions", "subscriptions"
   add_foreign_key "features", "plans"
+  add_foreign_key "subscriptions", "plans"
+  add_foreign_key "subscriptions", "users"
 end

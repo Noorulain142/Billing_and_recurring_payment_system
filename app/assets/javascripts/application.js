@@ -11,6 +11,7 @@
 // about supported directives.
 //= require jquery3
 //= require jquery_ujs
+//= require twitter/bootstrap
 //= require popper
 //= require tether
 //= require bootstrap

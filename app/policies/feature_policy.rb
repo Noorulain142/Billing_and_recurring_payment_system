@@ -13,8 +13,6 @@ class FeaturePolicy < ApplicationPolicy
     @plan = plan
   end
 
-  
-
   def new?
     admin?
   end

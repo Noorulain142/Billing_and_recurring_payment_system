@@ -22,7 +22,8 @@ class FeaturesController < ApplicationController
     if @feature.save
       redirect_to @plan, notice: 'Feature was successfully created.'
     else
-      render :new, status: :unprocessable_entity
+      # render :new, status: :unprocessable_entity
+      redirect_to @plan, notice: 'Feature was not successfully created.'
     end
   end
 
@@ -56,6 +57,6 @@ class FeaturesController < ApplicationController
   end
 
   def feature_params
-    params.require(:feature).permit(:name, :code, :unit_price, :max_unit_limit)
+    params.require(:feature).permit(:name, :code, :unit_price, :max_unit_limit, :usage_value)
   end
 end

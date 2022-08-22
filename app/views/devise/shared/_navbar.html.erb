@@ -1,20 +1,72 @@
-
-<nav class="navbar navbar-expand-lg navbar-light  " style="background-color: #878C8F;">
-  <a class="navbar-brand" ><%= current_user.name %></a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+<%# <nav class="navbar navbar-expand-lg navbar-light  " style="background-color: #878C8F;">
+  <a class="navbar-brand" style="font-weight: bold;"  href="# ">Billing System</a>
+  <a class="navbar-brand"><%= current_user.name %></a>
+  <%# <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse" id="navbarNav">
-    <ul class="navbar-nav">
+  </button> %>
+  <%# <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav ml-auto">
       <li class="nav-item active">
-        <%= link_to current_user.usertype, root_path,class:"nav-link" %>
-      </li>
+        <%= link_to current_user.usertype,root_path,class:"nav-link"  %>
+      <%# </li>
       <li class="nav-item">
         <%= link_to "Sign out", destroy_user_session_path,class:"nav-link", :method => :delete %>
-      </li>
+      <%# </li>
       <li class="nav-item">
+        <%= link_to 'Edit Account', edit_user_registration_path,class:"nav-link" %>
+      <%# </li> %>
+      <%# <li class="nav-item">
         <%=link_to "Plans",plans_path,class:"nav-link"%>
-      </li>
-    </ul>
+      <%# </li> %>
+    <%# </ul> %>
+
+  <%# </div> %>
+<%# </nav>  %>
+
+<nav class="navbar navbar-expand-lg navbar-light " style="background-color: #878C8F;">
+  <div class="container-fluid" >
+    <a class="navbar-brand" style="font-weight: bold ;" href="#">Billing System</a>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-mdb-toggle="collapse"
+      data-mdb-target="#navbarText"
+      aria-controls="navbarText"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <i class="fas fa-bars"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarText">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <%= link_to current_user.usertype,root_path,class:"nav-link"  %>
+        </li>
+        <li class="nav-item">
+         <%= link_to "Sign out", destroy_user_session_path,class:"nav-link", :method => :delete %>
+        </li>
+        <li class="nav-item">
+          <%= link_to 'Edit Account', edit_user_registration_path,class:"nav-link" %>
+        </li>
+        <li class="nav-item">
+          <%=link_to "Plans",plans_path,class:"nav-link"%>
+        </li>
+        <%# <% if policy(@user).show?%>
+        <%# <% if policy(plan).show?%>
+        <li class="nav-item">
+          <%=link_to "Invite Buyer",new_user_invitation_path,class:"nav-link" if policy(current_user).admin?%>
+        </li>
+        <%# <%end%>
+
+
+
+      </ul>
+      <span class="navbar-text">
+        <%= current_user.name %>
+          <% if current_user.avatar.attached?%>
+            <%= image_tag current_user.avatar,class:"avatar" %>
+          <%end%>
+      </span>
+    </div>
   </div>
 </nav>

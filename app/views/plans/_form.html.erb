@@ -1,3 +1,5 @@
+<div class="container" style="background-color:#577399">
+
 <%= form_with(model: plan, local: true) do |form| %>
   <% if plan.errors.any? %>
     <div id="error_explanation">
@@ -20,8 +22,12 @@
     <%= form.label :name %>
     <%= form.text_field :name,class:"form-control" %>
   </div>
-
-  <div class="actions">
+<br>
+  <div class="actions" style="text-align:center">
     <%= form.submit %>
   </div>
+  <br>
 <% end %>
+</div>
+
+
