@@ -13,6 +13,11 @@ class ApplicationController < ActionController::Base
   def configure_permitted_parameters
     devise_parameter_sanitizer.permit(:sign_up, keys: %i[name email encrypted_password usertype avatar])
     devise_parameter_sanitizer.permit(:accept_invitation, keys: %i[name email usertype])
+
+    devise_parameter_sanitizer.permit(:account_update) do |u|
+      u.permit(:name, :password, :current_password, :email, :usertype, :avatar,
+               :password_confirmation)
+    end
   end
 
   private

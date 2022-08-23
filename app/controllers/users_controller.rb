@@ -1,10 +1,19 @@
-# frozen_string_literal: true
+# # frozen_string_literal: true
 
 class UsersController < ApplicationController
-  def index; end
+  def index
+    # @users = User.all(where(ype == buyer))
+    @current_buyer = User.where(usertype: 'Buyer')
+  end
 
-  # private
-
+  def show
+  end
+  # # def destroy
+  # #   redirect_to destroy_user_session_path
+  # # end # private
+  # def destroy
+  #   redirect_to destroy_user_session_path
+  # end
   # def user_params
   #   params.require(:user).permit(:name, :email, :avatar)
   # end

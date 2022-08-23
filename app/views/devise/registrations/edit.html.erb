@@ -39,6 +39,10 @@
       <%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i><br />
       <%= f.password_field :current_password,class:"form-control",placeholder:"Current Password", autocomplete: "current-password" %>
     </div>
+   <div class="field form-group">
+      <%= f.file_field :avatar %>
+        <%image_tag(resource.avatar) if resource.avatar.attached?%>
+      </div>
     <div class="actions">
       <%= f.submit "Update", class:"btn btn-secondary" %>
     </div>

@@ -67,7 +67,9 @@ group :test do
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
+# gem 'activestorage-validator'
 gem 'bootstrap'
+gem 'cloudinary'
 gem 'devise_invitable'
 gem 'image_processing', '~> 1.2 '
 gem 'jquery-rails'
@@ -79,4 +81,4 @@ gem 'stripe'
 gem 'tether-rails'
 gem 'twitter-bootstrap-rails'
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
-gem 'cloudinary'
+gem 'table_print'

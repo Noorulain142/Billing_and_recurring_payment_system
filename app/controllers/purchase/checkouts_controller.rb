@@ -3,6 +3,7 @@
 module Purchase
   class CheckoutsController < ApplicationController
     before_action :authenticate_user!
+
     def create
       # byebug
       @plan = Plan.find(params[:plan_id])
@@ -27,8 +28,10 @@ module Purchase
       sub = Stripe::Subscription.retrieve(
         session.subscription
       )
+      # byebug
       Subscription.create!(user_id: current_user.id, status: sub.status, current_period_start: sub.current_period_start,
                            current_period_end: sub.current_period_end, interval: sub.items.data[0].plan.interval, customer_id: sub.customer, subscription_id: sub.id)
+
       @customer = Stripe::Customer.retrieve(session.customer)
     end
   end

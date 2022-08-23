@@ -1,0 +1,11 @@
+<div class="center">
+  <h1> INVOICE </h1>
+  <p style="color:red">Status:<%= @sub.status %><p>
+  <p>id:<%= @sub.id %><p>
+  <p>Interval:<%= @sub.interval %><p>
+  <p><%= @sub.current_period_end %><p>
+  <p><%= @sub.current_period_start %><p>
+  <p>customer ID:<%=@sub.customer_id%><p>
+  <p>Billing Day:<%=@sub.billing_day%><p>
+  <%= link_to button_tag('Back', class:"btn btn-primary btn-sm ",style:"background-color: #C84630"),users_path %>
+</div>

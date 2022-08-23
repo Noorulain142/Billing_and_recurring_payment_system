@@ -269,6 +269,7 @@ GEM
       activesupport (>= 5.2)
       sprockets (>= 3.0.0)
     stripe (7.0.0)
+    table_print (1.5.7)
     tether-rails (1.4.0)
       rails (>= 3.1)
     thor (1.2.1)
@@ -338,6 +339,7 @@ DEPENDENCIES
   spring
   spring-watcher-listen (~> 2.0.0)
   stripe
+  table_print
   tether-rails
   turbolinks (~> 5)
   twitter-bootstrap-rails

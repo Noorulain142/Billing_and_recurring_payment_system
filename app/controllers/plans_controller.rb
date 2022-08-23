@@ -6,7 +6,6 @@ class PlansController < ApplicationController
 
   def index
     @plans = Plan.all
-    @pagy, @plans = pagy(Plan.all, items: 2)
   end
 
   def show; end

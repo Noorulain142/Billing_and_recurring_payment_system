@@ -37,8 +37,19 @@
     <![endif]-->
   </head>
   <body>
-  <%= flash[:alert] %>
-  <%= flash[:notice] %>
+  <%= render 'home/navbar'%>
+
+ <% if flash[:notice]%>
+  <div class="notice alert alert-primary  mt-4" role="alert">
+  <%= flash[:notice]%>
+  </div>
+<% end %>
+<% if flash[:alert]%>
+  <div class="alert alert-primary  mt-4" role="alert">
+  <%= flash[:alert]%>
+  </div>
+<% end %>
+
 
     <%= yield %>
 

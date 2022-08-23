@@ -2,7 +2,7 @@
 
 class FeaturesController < ApplicationController
   before_action :set_plan
-  before_action :find_feature, only: %i[show destroy edit update]
+  before_action :find_feature, only: %i[show destroy edit update increase_count]
 
   def index
     @features = @plan.features.all
@@ -24,6 +24,16 @@ class FeaturesController < ApplicationController
     else
       # render :new, status: :unprocessable_entity
       redirect_to @plan, notice: 'Feature was not successfully created.'
+    end
+  end
+
+  def increase_count
+    @feature.update!(usage_value: @feature.usage_value += 1)
+    if @feature.usage_value > @feature.max_unit_limit
+      redirect_to request.referer, notice: 'Feature Over Used'
+      @over_use = (@feature.usage_value - @feature.max_unit_limit) * @feature.unit_price
+    else
+      redirect_to request.referer
     end
   end
 
