@@ -1,0 +1,25 @@
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <p>You got a new subscription! </p>
+    <p>
+    details<br>
+    --------------------------
+    </p>
+    <p>Name: <%= @customer.name %></p>
+    <p>Email: <%= @customer.email %></p>
+
+    <p>
+    <br>
+    Message:
+    Your subscription will be active for one month<br>
+    please be sure that you will be charged for the over use of features<br>
+    Have Fun <%=@customer.name%>!
+    <br>
+    ----------
+    </p>
+
+  </body>
+</html>

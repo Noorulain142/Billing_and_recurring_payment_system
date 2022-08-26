@@ -20,6 +20,7 @@
 <% if policy(Feature).create?%>
            <td><%= link_to button_tag('Create New Features', class:"btn btn-primary btn-sm",style:"background-color:#C84630"),new_plan_feature_path(@plan) %></td>
            <%end%>
+
 <%= link_to button_tag('Back', class:"btn btn-primary btn-sm ",style:"background-color: #C84630"),plans_path %>
 <%# <% if policy(@plan).subscribe_plan?%>
   <%# <% if !params[:id].presence || current_user.id%>

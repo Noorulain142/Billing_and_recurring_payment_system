@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class SubscriptionPolicy < ApplicationPolicy
   class Scope < Scope
     def resolve
@@ -13,11 +15,5 @@ class SubscriptionPolicy < ApplicationPolicy
 
   def show?
     return true if user.id.in?(@record.user_ids)
-  end
-
-  def subscribed?
-    if user.id == @record.user.id
-    return true
-    end
   end
 end

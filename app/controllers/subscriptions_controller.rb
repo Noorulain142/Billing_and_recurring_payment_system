@@ -1,15 +1,19 @@
+# frozen_string_literal: true
+
 class SubscriptionsController < ApplicationController
-  # before_action :set_plan, only: %i[show index]
-  before_action :set_subscription, only: %i[show]
-  before_action :set_billing, only: %i[show]
+  before_action :set_subscription, only: %i[show update]
+  before_action :set_user, only: %i[show]
+  before_action :set_billing, only: %i[show index]
   def index
     @subs = Subscription.all
   end
 
-  def show
-    # authorize @subscription
-    @user_buyer = User.where(usertype: 'Buyer')
+  def update
+    @sub = Subscription.find_by(user_id: params[:user_id])
+  end
 
+  def show
+    @user_buyer = User.where(usertype: 'Buyer')
     @sub = Subscription.find_by(user_id: params[:user_id])
   end
 
@@ -20,20 +24,20 @@ class SubscriptionsController < ApplicationController
   end
 
   def set_user
-    @user = User.find(params[:id])
+    @user = User.find(params[:user_id])
   end
 
   def set_billing
-    @subs = Subscription.find(params[:id])
-    # @subs.each do |sub|
-      # sub.billing_day = sub.created_at.to_date + 30.days
+    if @subs.present?
       @bill = @subs.created_at.to_date + 30.days
       @subs.update(billing_day: @bill)
-
+      # user_charged = User.find(@subs.user_id)
+      # SubscriptionJob.set(wait: 1.minute).perform_later(user_charged)
+    end
   end
 
   def params_subscription
-    params.require(:subscription).permit(:subscription_id, :user_id, :current_period_end, :current_period_start, :plan_id,
-                                         :billing_day)
+    params.require(:subscription).permit(:subscription_id, :user_id, :current_period_end, :current_period_start,
+                                         :plan_id, :billing_day, :interval, :plan_id)
   end
 end

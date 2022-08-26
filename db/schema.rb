@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_08_22_080613) do
+ActiveRecord::Schema.define(version: 2022_08_24_043747) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -36,15 +36,6 @@ ActiveRecord::Schema.define(version: 2022_08_22_080613) do
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
   end
 
-  create_table "feature_subscriptions", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.bigint "subscription_id"
-    t.bigint "features_id"
-    t.index ["features_id"], name: "index_feature_subscriptions_on_features_id"
-    t.index ["subscription_id"], name: "index_feature_subscriptions_on_subscription_id"
-  end
-
   create_table "features", force: :cascade do |t|
     t.string "name"
     t.integer "code"
@@ -54,7 +45,7 @@ ActiveRecord::Schema.define(version: 2022_08_22_080613) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.decimal "usage_value"
-    t.integer "usage_count"
+    t.integer "over_use"
     t.index ["plan_id"], name: "index_features_on_plan_id"
   end
 
@@ -114,8 +105,6 @@ ActiveRecord::Schema.define(version: 2022_08_22_080613) do
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
-  add_foreign_key "feature_subscriptions", "features", column: "features_id"
-  add_foreign_key "feature_subscriptions", "subscriptions"
   add_foreign_key "features", "plans"
   add_foreign_key "subscriptions", "plans"
   add_foreign_key "subscriptions", "users"

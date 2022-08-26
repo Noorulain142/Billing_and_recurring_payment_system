@@ -17,7 +17,7 @@
     </div>
 
     <div class="field form-group">
-        <%= f.select :usertype, options_for_select(["Buyer"]) %>
+        <%= f.text_field :usertype,value: 'Buyer',type: :hidden%>
     </div>
   <% end -%>
 <br>

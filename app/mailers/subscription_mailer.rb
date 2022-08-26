@@ -1,13 +1,14 @@
 # frozen_string_literal: true
 
 class SubscriptionMailer < ApplicationMailer
-  # Subject can be set in your I18n file at config/locales/en.yml
-  # with the following lookup:
-  #
-  #   en.subscription_mailer.payment_failed.subject
-  #
-  def payment_failed
-    @user = params[:user]
-    mail to: @user.email, subject: 'Payment attempt failed'
+  default from: 'Admin'
+  def new_subscription_email(customer)
+    @customer = customer
+    mail(to: customer.email, subject: 'You got a new subscription!')
+  end
+
+  def billing_mail(name)
+    @name = name
+    mail(to: current_user.email, subject: 'Your Monthly Bill!')
   end
 end

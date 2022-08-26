@@ -2,7 +2,7 @@
 
 require 'test_helper'
 
-class WebhooksControllerTest < ActionDispatch::IntegrationTest
+class SubscriptionJobTest < ActiveJob::TestCase
   # test "the truth" do
   #   assert true
   # end

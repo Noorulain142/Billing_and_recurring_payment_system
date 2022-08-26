@@ -3,10 +3,14 @@
 class ApplicationController < ActionController::Base
   include Pundit::Authorization
   include Pagy::Backend
+  rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
   before_action :authenticate_user!
   before_action :set_stripe_key
-  rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
   before_action :configure_permitted_parameters, if: :devise_controller?
+
+  def routing_error(_error = 'Routing error', _status = :not_found, _exception = nil)
+    render file: 'public/404.html', status: :not_found, layout: false
+  end
 
   protected
 

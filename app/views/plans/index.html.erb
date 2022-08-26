@@ -4,9 +4,6 @@
       <tr>
         <th scope="col"> Name</th>
         <th scope="col">Monthly fee</th>
-        <%# <% if current_user.usertype =='Admin'%>
-          <%# <th scope="col">Buyer</th> %>
-        <%# <%end%>
          <th scope="col"></th>
           <th scope="col"></th>
            <th scope="col"></th>
@@ -19,30 +16,22 @@
         <tr>
           <td><%= plan.name %></td>
           <td><%= plan.monthly_fee %></td>
-          <%# <td><% if current_user.usertype =='Admin'%>
-            <%# <%=plan.users.name%>
-            <%# <%plan.users.each do |user| %>
-               <%# helo<li><%= plan.user.name %></li>
-            <%# <%end%>
-
-      <%# <%end%></td>
+        </td>
         <% if policy(plan).buyer?%>
           <% if !params[:id].presence || current_user.id%>
-          <%# <% if @plan.users.where(id: current_user.id).present?%>
             <td><%= form_tag purchase_checkouts_path, method: :post, data: {
                         turbo: false
 } do %>
   <input type="hidden" name="price_id" value=<%= plan.price_id%>>
   <input type="hidden" name="plan_id" value=<%= plan.id %>>
-  <%# <input type=“submit” value=“Subscribe” class=“btn btn-primary”> %>
-  <button type="submit", class="btn btn-primary btn-sm "style="background-color: #C84630">Subscribe</button>
-<% end %></td>
+     <button type="submit", class="btn btn-primary btn-sm "style="background-color: #C84630">Subscribe</button>
+
+
+<%end %>
 <%end %>
 <%end%>
 <%# <%end%>
           <td><%= link_to button_tag('Show plan', class:"btn btn-primary btn-sm ",style:"background-color: #C84630"),plan_path(plan) %></td>
-          <%# <% if current_user.subscribed%>
-          <%# <% if @plan.users.where(id: current_user.id).present?%>
           <% if policy(plan).edit?%>
             <td><%= link_to button_tag('Edit plan', class:"btn btn-primary btn-sm",style:"background-color: #C84630"),edit_plan_path(plan) %></td>
           <%end%>
@@ -55,15 +44,12 @@
 
     </tbody>
   </table>
-  <%# <div class="d-flex justify-content-center pagy-nav">  <%== pagy_nav(@pagy) %>
   <br>
   <% if policy(Plan).create?%>
     <%= link_to button_tag('Create New Plan', class:"btn btn-primary btn-sm ",style:"background-color:#C84630"),new_plan_path %>
     <br>
   <% end %>
 </div>
-
-
 <div class="table-responsive">
   <table class="table"></table>
 </div>

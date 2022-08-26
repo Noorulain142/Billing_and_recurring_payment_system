@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class UserPolicy < ApplicationPolicy
   def admin?
     @user.usertype == 'Admin'
@@ -6,7 +8,4 @@ class UserPolicy < ApplicationPolicy
   def buyer?
     @user.usertype == 'Buyer'
   end
-
-  
-
 end
