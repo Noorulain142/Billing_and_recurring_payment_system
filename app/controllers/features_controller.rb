@@ -2,7 +2,7 @@
 
 class FeaturesController < ApplicationController
   before_action :set_plan
-  before_action :find_feature, only: %i[show destroy edit update]
+  before_action :find_feature, only: %i[show destroy edit update increase_count over_use]
 
   def index
     @features = @plan.features.all
@@ -22,9 +22,28 @@ class FeaturesController < ApplicationController
     if @feature.save
       redirect_to @plan, notice: 'Feature was successfully created.'
     else
-      # render :new, status: :unprocessable_entity
-      redirect_to @plan, notice: 'Feature was not successfully created.'
+      redirect_to @plan, locals: { error: @feature.errors.full_messages.to_sentence }
     end
+  end
+
+  def increase_count
+    @feature.update!(usage_value: @feature.usage_value += 1)
+    if @feature.usage_value > @feature.max_unit_limit
+      over_use
+      redirect_to request.referer, notice: 'Feature Over Used'
+
+    else
+      redirect_to request.referer
+    end
+  end
+
+  def over_use
+    @use = Feature.find(params[:id])
+    value = @feature.usage_value
+    limit = @feature.max_unit_limit
+    price = @feature.unit_price
+    @over_use = (value - limit) * price
+    @use.update(over_use: @over_use)
   end
 
   def update
@@ -32,7 +51,7 @@ class FeaturesController < ApplicationController
     if @feature.update(feature_params)
       redirect_to @plan, notice: 'Feature was successfully updated.'
     else
-      render :edit, status: :unprocessable_entity
+      render :edit, locals: { error: @feature.errors.full_messages.to_sentence }
 
     end
   end
@@ -42,7 +61,7 @@ class FeaturesController < ApplicationController
     if @feature.destroy
       redirect_to @plan, notice: 'Feature was successfully destroyed.'
     else
-      render :show
+      render :show, locals: { error: @feature.errors.full_messages.to_sentence }
     end
   end
 
@@ -57,6 +76,6 @@ class FeaturesController < ApplicationController
   end
 
   def feature_params
-    params.require(:feature).permit(:name, :code, :unit_price, :max_unit_limit, :usage_value)
+    params.require(:feature).permit(:name, :code, :unit_price, :max_unit_limit, :usage_value, :over_use)
   end
 end

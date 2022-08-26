@@ -22,9 +22,9 @@
 
   <%# </div> %>
 <%# </nav>  %>
-
+<% if current_user.present? %>
 <nav class="navbar navbar-expand-lg navbar-light " style="background-color: #878C8F;">
-  <div class="container-fluid" >
+  <div class="container-fluid">
     <a class="navbar-brand" style="font-weight: bold ;" href="#">Billing System</a>
     <button
       class="navbar-toggler"
@@ -40,10 +40,12 @@
     <div class="collapse navbar-collapse" id="navbarText">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
+
           <%= link_to current_user.usertype,root_path,class:"nav-link"  %>
+
         </li>
         <li class="nav-item">
-         <%= link_to "Sign out", destroy_user_session_path,class:"nav-link", :method => :delete %>
+         <%= link_to "Sign out", destroy_user_session_path, method: :delete, class:"nav-link" %>
         </li>
         <li class="nav-item">
           <%= link_to 'Edit Account', edit_user_registration_path,class:"nav-link" %>
@@ -51,22 +53,25 @@
         <li class="nav-item">
           <%=link_to "Plans",plans_path,class:"nav-link"%>
         </li>
-        <%# <% if policy(@user).show?%>
-        <%# <% if policy(plan).show?%>
+        <%# <% if policy(@user).show?
+        <% if policy(plan).show? %>
         <li class="nav-item">
-          <%=link_to "Invite Buyer",new_user_invitation_path,class:"nav-link" if policy(current_user).admin?%>
+          <%=link_to "Invite Buyer",new_user_invitation_path,class:"nav-link" if policy(current_user).admin? %>
         </li>
-        <%# <%end%>
-
-
-
+        <li class="nav-item">
+          <%=link_to "Current Buyers",users_path,class:"nav-link" if policy(current_user).admin? %>
+        </li>
+        <li class="nav-item">
+          <%=link_to "Current Subscriptions",users_path,class:"nav-link" if policy(current_user).buyer? %>
+        </li>
       </ul>
       <span class="navbar-text">
         <%= current_user.name %>
-          <% if current_user.avatar.attached?%>
-            <%= image_tag current_user.avatar,class:"avatar" %>
-          <%end%>
+          <% if current_user.avatar.attached? %>
+            <%= cl_image_tag current_user.avatar.key,class:"avatar" %>
+          <% end %>
       </span>
     </div>
   </div>
 </nav>
+ <% end %>

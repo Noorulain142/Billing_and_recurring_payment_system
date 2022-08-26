@@ -1,7 +1,0 @@
-<%# <%=  button_tag ('Subscribe', class: 'btn btn-dark float-left')%>
-<%# <button type="button" class="btn btn-primary">Subscribe</button> %>
-<%=form_tag purchase_checkouts_path, metod: :post ,data: {turbo: false} do %>
-  <input type="hidden" name="price_id" value="<%=Rails.application.credentials.dig(:stripe, :pricing, :monthly)%>" />
-  <input type="submit" value="Subscribe plan"/>
-<%end%>
-<%# <%=link_to "subscribe",new_user_session_path, class:"px-3 py-4 bg-indigo-600 hover:bg-indigo-700 block no-underline w-full text-center rounded font-bold text-white shadow-sm cursor-pointer"%>

@@ -1,0 +1,29 @@
+
+<div class="container">
+<br>
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th scope="col"></th>
+      <th scope="col">Buyer</th>
+      <th scope="col">Plans</th>
+      <th scope="col"></th>
+      <th scope="col"></th>
+    </tr>
+  </thead>
+  <tbody>
+  <% if @current_buyer.present? %>
+    <% if policy(current_user).admin?%>
+      <%= render 'current_buyer' %>
+    <%else%>
+      <%= render 'current_subscription' %>
+    <% end %>
+  <%else %>
+     <span>No User Found</span>
+  <% end %>
+  </tbody>
+</table>
+<%= link_to button_tag('Back', class:"btn btn-primary btn-sm ",style:"background-color: #C84630"),plans_path %>
+</div>
+<tr>
+

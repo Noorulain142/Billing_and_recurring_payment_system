@@ -1,30 +1,3 @@
-<h1>FML</h1>
-<div class="container ">
-  <%=  form_for ([@plan,@feature]),remote: true do |f| %>
-    <div class="field form-group">
-      <%= f.label :name %><br />
-      <%= f.text_field :name,class:"form-control",placeholder:"Name", presence: true, length: { minimum: 4 } %>
-    </div>
 
-    <div class="field form-group">
-      <%= f.label :code %><br />
-      <%# <label>code<span class= 'required' ></span></label> %>
-      <%= f.text_field :code,class:"form-control",placeholder:"Name", presence: true %>
-    </div>
-    <br>
-    <div class="field form-group">
-      <%= f.label :unit_price %><br />
-      <%# <label>unit price <span class= 'required' ></span></label> %>
-      <%= f.text_field :unit_price,class:"form-control",placeholder:"Name", presence: true %>
-    </div>
-    <div class="field form-group">
-       <%= f.label :max_unit_limit %><br />
-      <%= f.text_field :max_unit_limit,class:"form-control",placeholder:"Name", presence: true, length: { minimum: 4 } %>
-    </div>
-    <p>
-      <%= f.submit 'Add Feature' , class: 'button-10'%>
-    </p>
-  <% end %>
-  <br>
-  <%= link_to button_tag('Back', class: 'btn btn-dark float-left' ),plans_path %>
-</div>
+
+

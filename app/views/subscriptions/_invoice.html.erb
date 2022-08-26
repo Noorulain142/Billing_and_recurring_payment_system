@@ -1,0 +1,10 @@
+<h1> INVOICE </h1>
+  <p>user:<%=@user.name%><p>
+  <%@plan=Plan.find(params[:plan_id])%>
+  <p>Plan name:<%=@plan.name%></p>
+  <p>monthly fee:<%=@plan.monthly_fee%><p>
+  <p style="color:red">Bill:<%=bill(@plan)%><p>
+  <p>Status:<%= params[:status] %><p>
+  <p>Interval:<%= params[:interval] %><p>
+  <p>Billing Day:<%= params[:billing_day]%><p>
+  <br>

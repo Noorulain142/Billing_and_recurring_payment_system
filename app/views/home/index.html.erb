@@ -1,4 +1,4 @@
-<%= render 'devise/shared/navbar'%>
+<%# <%= render 'devise/shared/navbar'%> %>
 <%if current_user.usertype=="Buyer"%>
   <%= render 'buyer'%>
   <div class="d-flex justify-content-center pagy-nav">  <%== pagy_nav(@pagy) %></div>

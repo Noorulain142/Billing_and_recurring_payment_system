@@ -4,37 +4,34 @@
     <br/>
     <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
       <%= render "devise/shared/error_messages", resource: resource %>
-      <div class="field form-group">
-          <%= f.select :usertype, options_for_select([["Admin", "Admin"]]) %>
+      <div class="field form-group mt-3">
+          <%# <%= f.select :usertype, options_for_select([["Admin", "Admin"]]),type: :hidden %> 
+          <%= f.text_field :usertype,value: 'Admin',type: :hidden%>
       </div>
         <br>
 
-      <div class="field form-group">
-          <%= f.label :name %><br />
-          <%= f.text_field :name,class:"form-control",placeholder:"Name", autofocus: true, autocomplete: "name" %>
+      <div class="field form-group mt-3">
+          <%= f.text_field :name,class:"form-control",placeholder:"Name",required: true, autofocus: true, autocomplete: "name" %>
       </div>
 
-      <div class="field form-group">
-        <%= f.label :email %><br />
-        <%= f.email_field :email,class:"form-control",placeholder:"Email", autofocus: true, autocomplete: "email" %>
+      <div class="field form-group mt-3">
+        <%= f.email_field :email,class:"form-control",placeholder:"Email",required: true, autofocus: true, autocomplete: "email" %>
       </div>
 
-      <div class="field form-group">
-        <%= f.label :password %>
+      <div class="field form-group mt-3">
         <% if @minimum_password_length %>
         <em>(<%= @minimum_password_length %> characters minimum)</em>
         <% end %><br />
-        <%= f.password_field :password,class:"form-control",placeholder:"Password", autocomplete: "new-password" %>
+        <%= f.password_field :password,class:"form-control",placeholder:"Password",required: true, autocomplete: "new-password" %>
       </div>
-      <div class="field form-group">
-        <%= f.label :password_confirmation %><br />
-        <%= f.password_field :password_confirmation,class:"form-control",placeholder:"Password Confirmation ", autocomplete: "new-password" %>
+      <div class="field form-group mt-3">
+        <%= f.password_field :password_confirmation,class:"form-control",placeholder:"Password Confirmation ",required: true, autocomplete: "new-password" %>
       </div>
-      <div class="field form-group">
+      <div class="field form-group mt-3">
       <%= f.file_field :avatar %>
         <%image_tag(resource.avatar) if resource.avatar.attached?%>
       </div>
-      <div class="actions">
+      <div class="actions mt-3 mb-3">
         <%= f.submit "Sign up" , class:"btn btn-secondary"%>
       </div>
     <%end%>
