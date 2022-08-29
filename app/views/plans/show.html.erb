@@ -10,7 +10,7 @@
   </div>
 
 </p>
-<%= render 'features' %>
+  <%= render 'features' %>
 <% if policy(Feature).create?%>
            <td><%= link_to button_tag('Create New Features', class:"btn btn-primary btn-sm",style:"background-color:#C84630"),new_plan_feature_path(@plan) %></td>
            <%end%>

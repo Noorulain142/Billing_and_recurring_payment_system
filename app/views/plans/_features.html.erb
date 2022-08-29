@@ -1,5 +1,5 @@
 <br>
-<% if @plan.present? %>
+<% if @plan.features.present? %>
   <table class="table table-striped">
     <thead>
     <tr><div style="text-align:center;"><strong>Present Features</strong></div><tr><br>
@@ -37,6 +37,8 @@
 
     </tbody>
   </table>
+<%else%>
+ <h3 class="container" style="text-align:center">No Features Created Yet</h3>
 <%end%>
 
 

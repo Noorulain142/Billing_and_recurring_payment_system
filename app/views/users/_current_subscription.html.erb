@@ -8,6 +8,8 @@
         <th scope="row"></th>
         <td><%= link_to button_tag('Invoice Details', class:"btn btn-primary btn-sm ",style:"background-color: #C84630"),user_subscription_path(subscribed_user.id , user_id: f.id,billing_day:subscribed_user.billing_day, status:subscribed_user.status,interval: subscribed_user.interval,plan_id:subscribed_user.plan_id ) %></td>
       <% end %>
-    <% end %>
+    <% else %>
+     <h3 class="container" style="text-align:center">No Subscriptions Yet</h3>
+    <%end%>
   <% end %>
 <% end %>

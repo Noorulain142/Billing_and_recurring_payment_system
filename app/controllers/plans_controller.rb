@@ -27,7 +27,7 @@ class PlansController < ApplicationController
                                  })
     @plan.product_id = product.id
     @plan.price_id = price.id
-    Rails.logger.debug "#qweqweqweqweqwe#{price.id}"
+    # Rails.logger.debug "#qweqweqweqweqwe#{price.id}"
     redirect_to plan_url(@plan), allow_other_host: true if @plan.save
   end
 
