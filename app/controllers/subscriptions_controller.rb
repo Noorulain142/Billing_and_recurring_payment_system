@@ -28,12 +28,12 @@ class SubscriptionsController < ApplicationController
   end
 
   def set_billing
-    if @subs.present?
-      @bill = @subs.created_at.to_date + 30.days
-      @subs.update(billing_day: @bill)
-      # user_charged = User.find(@subs.user_id)
-      # SubscriptionJob.set(wait: 1.minute).perform_later(user_charged)
-    end
+    return if @subs.blank?
+
+    @bill = @subs.created_at.to_date + 30.days
+    @subs.update(billing_day: @bill)
+    # user_charged = User.find(@subs.user_id)
+    # SubscriptionJob.set(wait: 1.minute).perform_later(user_charged)
   end
 
   def params_subscription

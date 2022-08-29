@@ -37,21 +37,21 @@ ActiveRecord::Schema.define(version: 2022_08_24_043747) do
   end
 
   create_table "features", force: :cascade do |t|
-    t.string "name"
-    t.integer "code"
-    t.integer "unit_price"
-    t.integer "max_unit_limit"
+    t.string "name", null: false
+    t.integer "code", null: false
+    t.integer "unit_price", null: false
+    t.integer "max_unit_limit", null: false
     t.bigint "plan_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.decimal "usage_value"
+    t.decimal "usage_value", null: false
     t.integer "over_use"
     t.index ["plan_id"], name: "index_features_on_plan_id"
   end
 
   create_table "plans", force: :cascade do |t|
-    t.integer "monthly_fee"
-    t.string "name"
+    t.integer "monthly_fee", null: false
+    t.string "name", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "product_id"
