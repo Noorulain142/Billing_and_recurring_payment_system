@@ -6,8 +6,8 @@ module Purchase
 
     @@plan_obj_id = 0
     def create
-      plan_obj = Plan.find(params[:plan_id])
-      @@plan_obj_id = plan_obj.id
+      @plan_obj = Plan.find(params[:plan_id])
+      @@plan_obj_id = @plan_obj.id
       session = Stripe::Checkout::Session.create(
         customer: current_user.stripe_id,
         client_reference_id: current_user.id,
@@ -18,7 +18,8 @@ module Purchase
         customer_email: current_user.email,
         line_items: [{
           quantity: 1,
-          price: plan_obj.price_id
+          price: @plan_obj.price_id
+          # currency: 'usd'
         }]
       )
 
@@ -31,8 +32,11 @@ module Purchase
       sub = Stripe::Subscription.retrieve(
         session.subscription
       )
-      Subscription.create!(plan_id: @@plan_obj_id, user_id: current_user.id, status: sub.status, current_period_start: sub.current_period_start,
-                           current_period_end: sub.current_period_end, interval: sub.items.data[0].plan.interval, customer_id: sub.customer, subscription_id: sub.id)
+      Subscription.create!(plan_id: @@plan_obj_id, user_id: current_user.id, status: sub.status,
+                           current_period_start: sub.current_period_start,
+                           current_period_end: sub.current_period_end,
+                           interval: sub.items.data[0].plan.interval,
+                           customer_id: sub.customer, subscription_id: sub.id)
 
       @customer = Stripe::Customer.retrieve(session.customer)
       SubscriptionMailer.new_subscription_email(@customer).deliver

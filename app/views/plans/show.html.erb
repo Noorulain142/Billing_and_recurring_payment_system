@@ -10,43 +10,13 @@
   </div>
 
 </p>
-<%# <p> %>
-  <%# <strong>Billing day:</strong> %>
-  <%# <%= @plan.billing_day %>
-<%# </p> %>
-
-
 <%= render 'features' %>
 <% if policy(Feature).create?%>
            <td><%= link_to button_tag('Create New Features', class:"btn btn-primary btn-sm",style:"background-color:#C84630"),new_plan_feature_path(@plan) %></td>
            <%end%>
 
 <%= link_to button_tag('Back', class:"btn btn-primary btn-sm ",style:"background-color: #C84630"),plans_path %>
-<%# <% if policy(@plan).subscribe_plan?%>
-  <%# <% if !params[:id].presence || current_user.id%>
-    <%# <% if !@plan.users.where(id: current_user.id).present?%>
-      <%# <%= link_to 'Subscribe', purchase_checkouts_path, class: 'btn btn-dark float-left', method: :post%>
-      <%# <input type="hidden" <% @plan.id%>
-    <%# <%#=button_to 'Subscribe',checkout_create_path, method: :post, params: {id: @plan.id}%>
-    <%# <%end %>
-  <%# <%end %>
-<%# <%end %>
 
-<%# <%= form_tag purchase_checkouts_path, method: :post, data: { %>
-                        <%# turbo: false %>
-<%# } do %>
-  <%# <input type="hidden" name="price_id" value=<%= @plan.price_id%>
-  <%# <input type="hidden" name="plan_id" value=<%= @plan.id %>
-  <%# <input type=“submit” value=“Subscribe” class=“btn btn-primary”> %>
-  <%# <button type="submit">Subscribe</button> %>
-<%# <% end %>
-
-
-<%# <% if policy(@plan).unsubscribe_plan? %>
-  <%# <% if @plan.users.where(id: current_user.id).present?%>
-    <%# <%= link_to button_tag('Unsubscribe', class: 'btn btn-dark float-left'),unsubscribe_plan_path(@plan) %>
-  <%# <%end%>
-<%# <%end%>
 
 
 

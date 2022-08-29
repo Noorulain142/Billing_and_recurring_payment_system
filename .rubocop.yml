@@ -13,6 +13,10 @@ AllCops:
     - 'node_modules/**/*'
     - 'vendor/bundle/**/*'
     - 'bin/**/*'
+    - 'db/migrate/**/*'
+    - 'config/initializers/**/*'
+    - 'config/environments/**/*'
+    - 'app/controllers/purchase/checkouts_controller.rb'
 
 Layout/LineLength:
   Max: 120
