@@ -42,6 +42,7 @@ module Purchase
       SubscriptionMailer.new_subscription_email(@customer).deliver
       @name = @customer.name
       SubscriptionJob.set(wait: 30.days).perform_later(@name)
+
     end
   end
 end

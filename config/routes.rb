@@ -2,12 +2,11 @@
 
 Rails.application.routes.draw do
   devise_for :users
-  # get 'members/dashboard'
 
   resources :plans do
     resources :features
     patch 'plans/:plan_id/features/:id' => 'features#increase_count', as: 'inc_count'
-    get 'users/:user_id/subscriptions/:id' => 'users#send_invoice', as: 'send_inov'
+    # get 'users/:user_id/subscriptions/:id' => 'users#send_invoice', as: 'send_inov'
   end
 
   unauthenticated do

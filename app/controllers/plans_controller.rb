@@ -27,7 +27,6 @@ class PlansController < ApplicationController
                                  })
     @plan.product_id = product.id
     @plan.price_id = price.id
-    # Rails.logger.debug "#qweqweqweqweqwe#{price.id}"
     redirect_to plan_url(@plan), allow_other_host: true if @plan.save
   end
 
@@ -67,10 +66,4 @@ class PlansController < ApplicationController
     params.require(:plan).permit(:monthly_fee, :name)
   end
 
-  # def delete_plan
-  #   @stripe_prod_id = @plan.stripe_plan_id
-  #   @stripe_price_id = @plan.price_id
-  #   yield
-  #   Stripe::Product.update(@stripe_prod_id, active: 'false')
-  # end
 end
