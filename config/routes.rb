@@ -6,7 +6,6 @@ Rails.application.routes.draw do
   resources :plans do
     resources :features
     patch 'plans/:plan_id/features/:id' => 'features#increase_count', as: 'inc_count'
-    # get 'users/:user_id/subscriptions/:id' => 'users#send_invoice', as: 'send_inov'
   end
 
   unauthenticated do
@@ -20,7 +19,7 @@ Rails.application.routes.draw do
     resources :subscriptions
   end
 
-  patch 'features/increase_count' => 'features#increase_count'
+  # patch 'features/increase_count' => 'features#increase_count'
   resources :features do
     resources :subscriptions
   end
