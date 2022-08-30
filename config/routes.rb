@@ -19,7 +19,6 @@ Rails.application.routes.draw do
     resources :subscriptions
   end
 
-  # patch 'features/increase_count' => 'features#increase_count'
   resources :features do
     resources :subscriptions
   end

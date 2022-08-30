@@ -7,6 +7,7 @@ class ApplicationController < ActionController::Base
   before_action :authenticate_user!
   before_action :set_stripe_key
   before_action :configure_permitted_parameters, if: :devise_controller?
+  rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
 
   def routing_error(_error = 'Routing error', _status = :not_found, _exception = nil)
     render file: 'public/404.html', status: :not_found, layout: false
@@ -32,5 +33,9 @@ class ApplicationController < ActionController::Base
 
   def set_stripe_key
     Stripe.api_key = Rails.application.credentials.dig(:stripe, :secret_key)
+  end
+
+  def record_not_found
+    redirect_to(request.referer || plans_path, notice: 'Record Not Found')
   end
 end

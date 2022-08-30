@@ -65,5 +65,4 @@ class PlansController < ApplicationController
   def plan_params
     params.require(:plan).permit(:monthly_fee, :name)
   end
-
 end
