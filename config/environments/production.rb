@@ -102,7 +102,7 @@ Rails.application.configure do
   config.action_mailer.smtp_settings = {
     address: "smtp.gmail.com",
     port: 587,
-    domain: "mail.google.com",
+    domain: "heruko.com",
     user_name: Rails.application.credentials[:username],
     password: Rails.application.credentials[:password],
     authentication: "plain",
