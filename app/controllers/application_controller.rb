@@ -38,4 +38,5 @@ class ApplicationController < ActionController::Base
   def record_not_found
     redirect_to(request.referer || plans_path, notice: 'Record Not Found')
   end
+
 end
