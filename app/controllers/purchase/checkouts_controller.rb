@@ -19,7 +19,6 @@ module Purchase
         line_items: [{
           quantity: 1,
           price: @plan_obj.price_id
-          # currency: 'usd'
         }]
       )
 
