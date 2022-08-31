@@ -4,17 +4,21 @@ class SubscriptionsController < ApplicationController
   before_action :set_subscription, only: %i[show update]
   before_action :set_user, only: %i[show]
   before_action :set_billing, only: %i[show index]
+  before_action :set_subscribed_user, only: %i[update show]
+
   def index
-    @subs = Subscription.all
+    if Subscription.present?
+      @subs = Subscription.all
+    else
+      redirect_to request.referer, notice: 'Subscription not found'
+    end
   end
 
-  def update
-    @sub = Subscription.find_by(user_id: params[:user_id])
-  end
+  def update; end
 
   def show
     @user_buyer = User.where(usertype: 'Buyer')
-    @sub = Subscription.find_by(user_id: params[:user_id])
+    @plan = Plan.find(params[:plan_id])
   end
 
   private
@@ -32,12 +36,14 @@ class SubscriptionsController < ApplicationController
 
     @bill = @subs.created_at.to_date + 30.days
     @subs.update(billing_day: @bill)
-    # user_charged = User.find(@subs.user_id)
-    # SubscriptionJob.set(wait: 1.minute).perform_later(user_charged)
   end
 
   def params_subscription
     params.require(:subscription).permit(:subscription_id, :user_id, :current_period_end, :current_period_start,
                                          :plan_id, :billing_day, :interval, :plan_id)
+  end
+
+  def set_subscribed_user
+    @sub = Subscription.find_by(user_id: params[:user_id])
   end
 end

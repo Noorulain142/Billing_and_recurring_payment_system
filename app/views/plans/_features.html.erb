@@ -2,43 +2,24 @@
 <% if @plan.features.present? %>
   <table class="table table-striped">
     <thead>
-    <tr><div style="text-align:center;"><strong>Present Features</strong></div><tr><br>
-      <tr>
-        <th scope="col">Name</th>
-        <th scope="col">Code</th>
-        <th scope="col">Unit Price</th>
-        <th scope="col">Max Unit Limit</th>
-        <th scope="col">Usage value</th>
-        <th scope="col">Over Use</th>
-        <th scope="col"></th>
-        <th scope="col"></th>
-      </tr>
+      <tr><div style="text-align:center;"><strong>Present Features</strong></div><tr><br>
+        <tr>
+          <th scope="col">Name</th>
+          <th scope="col">Code</th>
+          <th scope="col">Unit Price</th>
+          <th scope="col">Max Unit Limit</th>
+          <th scope="col">Usage value</th>
+          <th scope="col">Over Use</th>
+          <th scope="col"></th>
+          <th scope="col"></th>
+        </tr>
     </thead>
     <tbody>
-    <% @plan.features.each do |feature| %>
-      <tr>
-      <%# <th scope="row">2</th> %>
-        <td><%= feature.name %></td>
-        <td><%= feature.code %></td>
-        <td><%= feature.unit_price %></td>
-        <td><%= feature.max_unit_limit%></td>
-        <td><%= feature.usage_value%> </td>
-        <td><%= feature.over_use%> </td>
-        <% if policy(feature).edit?%>
-
-        <td><%= link_to button_tag("Edit",class:"btn btn-primary btn-sm ",style:"background-color: #C84630"), edit_plan_feature_path(@plan,feature) %></td>
-        <%end%>
-        <% if policy(feature).destroy?%>
-        <td><%= link_to button_tag('Delete', class:"btn btn-primary btn-sm",style:"background-color: #C84630"),[@plan,feature], method: :delete, data: { confirm: 'Are you sure you want to delete this feature?' } %></td>
-        <%end%>
-        <td><%= link_to "Start",plan_inc_count_url(@plan,feature),method: :patch ,class:"btn btn-primary btn-sm",style:"background-color: #C84630"%></td>
-      </tr>
-      <%end%>
-
+      <%= render partial: 'newfeature',collection: @plan.features, as: :feature%>
     </tbody>
   </table>
 <%else%>
- <h3 class="container" style="text-align:center">No Features Created Yet</h3>
+<h3 class="container" style="text-align:center">No Features Created Yet</h3>
 <%end%>
 
 

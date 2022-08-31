@@ -2,13 +2,15 @@
 
 class FeaturesController < ApplicationController
   before_action :set_plan
-  before_action :find_feature, only: %i[show destroy edit update increase_count over_use]
+  before_action :find_feature, only: %i[destroy edit update increase_count]
 
   def index
-    @features = @plan.features.all
+    if @plan.features.present?
+      @features = @plan.features.all
+    else
+      redirect_to @plan, locals: { error: @feature.errors.full_messages.to_sentence }
+    end
   end
-
-  def show; end
 
   def new
     @feature = @plan.features.new
@@ -28,22 +30,13 @@ class FeaturesController < ApplicationController
 
   def increase_count
     @feature.update!(usage_value: @feature.usage_value += 1)
+    @feature.update(over_use: @use)
     if @feature.usage_value > @feature.max_unit_limit
-      over_use
+      @use = @feature.over_use
       redirect_to request.referer, notice: 'Feature Over Used'
-
     else
       redirect_to request.referer
     end
-  end
-
-  def over_use
-    @use = Feature.find(params[:id])
-    value = @feature.usage_value
-    limit = @feature.max_unit_limit
-    price = @feature.unit_price
-    @over_use = (value - limit) * price
-    @use.update(over_use: @over_use)
   end
 
   def update

@@ -1,15 +1,15 @@
  <% @current_buyer.each do |f| %>
-    <tr>
-      <th scope="row"></th>
-      <td><%=f.name %></td>
-      <% if f.subscriptions.present?%>
-        <%f.subscriptions.each do |subscribed_user|%>
-          <td><ul class="list-group list-group-flush"><li><%= Plan.find(subscribed_user.plan_id).name %></li></ul><td>
-          <th scope="row"></th>
-         <td><%= link_to button_tag('Invoice Details', class:"btn btn-primary btn-sm ",style:"background-color: #C84630"),user_subscription_path(subscribed_user.id , user_id: f.id,billing_day:subscribed_user.billing_day, status:subscribed_user.status,interval: subscribed_user.interval,plan_id:subscribed_user.plan_id ) %></td>
-        <% end %>
-      <%else%>
-      <td>No Subscriptions</td>
+  <tr>
+    <th scope="row"></th>
+    <td><%=f.name %></td>
+    <% if f.subscriptions.present?%>
+      <%f.subscriptions.each do |subscribed_user|%>
+        <td><ul class="list-group list-group-flush"><li><%= Plan.find(subscribed_user.plan_id).name %></li></ul><td>
+        <th scope="row"></th>
+        <td><%= link_to button_tag('Invoice Details', class:"btn btn-primary btn-sm ",style:"background-color: #C84630"),user_subscription_path(subscribed_user.id , user_id: f.id,billing_day:subscribed_user.billing_day, status:subscribed_user.status,interval: subscribed_user.interval,plan_id:subscribed_user.plan_id ) %></td>
       <% end %>
-    </tr>
-    <%end %>
+    <%else%>
+      <td>No Subscriptions</td>
+    <% end %>
+  </tr>
+<%end %>

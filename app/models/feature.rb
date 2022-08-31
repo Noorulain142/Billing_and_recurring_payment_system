@@ -3,6 +3,9 @@
 class Feature < ApplicationRecord
   belongs_to :plan
   validates :name, :code, :unit_price, :max_unit_limit, :usage_value, presence: true
-  validates :unit_price, length: { maximum: 10 }
-  validates :max_unit_limit, length: { maximum: 20 }
+  validates :code, :unit_price, :max_unit_limit, :usage_value, numericality: { only_integer: true, greater_than: 0 }
+  def over_use
+    @use = Feature.find(id)
+    return @over_use = (usage_value - max_unit_limit) * unit_price if usage_value > max_unit_limit
+  end
 end

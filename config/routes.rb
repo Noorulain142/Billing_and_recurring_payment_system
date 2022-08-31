@@ -8,18 +8,7 @@ Rails.application.routes.draw do
     patch 'plans/:plan_id/features/:id' => 'features#increase_count', as: 'inc_count'
   end
 
-  unauthenticated do
-    root to: 'plans#index'
-  end
-  authenticated do
-    root to: 'plans#index'
-  end
-
   resources :users do
-    resources :subscriptions
-  end
-
-  resources :features do
     resources :subscriptions
   end
 
@@ -30,6 +19,14 @@ Rails.application.routes.draw do
   namespace :purchase do
     resources :checkouts
   end
+
+  unauthenticated do
+    root to: 'plans#index'
+  end
+  authenticated do
+    root to: 'plans#index'
+  end
+
   get 'success', to: 'purchase/checkouts#success'
   get '*path', to: 'application#routing_error'
 end

@@ -5,7 +5,11 @@ class PlansController < ApplicationController
   before_action :set_plan, only: %i[show edit update destroy]
 
   def index
-    @plans = Plan.all
+    if Plan.present?
+      @plans = Plan.all
+    else
+      redirect_to request.referer, notice: 'plan not found'
+    end
   end
 
   def show; end
@@ -27,7 +31,8 @@ class PlansController < ApplicationController
                                  })
     @plan.product_id = product.id
     @plan.price_id = price.id
-    redirect_to plan_url(@plan), allow_other_host: true if @plan.save
+    @plan.save
+    redirect_to plan_url(@plan), allow_other_host: true
   end
 
   def update
@@ -49,7 +54,11 @@ class PlansController < ApplicationController
   end
 
   def users
-    @subscribed_users = @plan.find_user
+    if @plan.find_user
+      @subscribed_users = @plan.find_user
+    else
+      redirect_to request.referer, notice: 'User not found'
+    end
   end
 
   private

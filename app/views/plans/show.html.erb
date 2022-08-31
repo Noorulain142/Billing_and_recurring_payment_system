@@ -2,18 +2,14 @@
 <br>
 <p>
   <div class="plan",style="background-color:#577399">
-  <h5><strong>Name:<%= @plan.name %></strong>
-
-  <br></h5>
-  <h5><strong>Monthly Fee:<%= @plan.monthly_fee %></strong>
-  </h5>
+    <h5><strong>Name:<%= @plan.name %></strong><br></h5>
+    <h5><strong>Monthly Fee:<%= @plan.monthly_fee %></strong></h5>
   </div>
-
 </p>
-  <%= render 'features' %>
+<%= render 'features' %>
 <% if policy(Feature).create?%>
            <td><%= link_to button_tag('Create New Features', class:"btn btn-primary btn-sm",style:"background-color:#C84630"),new_plan_feature_path(@plan) %></td>
-           <%end%>
+<%end%>
 
 <%= link_to button_tag('Back', class:"btn btn-primary btn-sm ",style:"background-color: #C84630"),plans_path %>
 

@@ -2,34 +2,38 @@
   <%=  form_for ([@plan, feature]),remote: true do |f| %>
     <div class="field form-group">
       <%= f.label :name %><br />
-      <%= f.text_field :name,class:"form-control",placeholder:"Name", presence: true, length: { minimum: 4 } %>
+      <%= f.text_field :name,class:"form-control",placeholder:"Name",required: true, length: { minimum: 4 } %>
     </div>
 
     <div class="field form-group">
       <%= f.label :code %><br />
-      <%# <label>code<span class= 'required' ></span></label> %>
-      <%= f.text_field :code,class:"form-control",placeholder:"Name", presence: true %>
+      <%= f.text_field :code,class:"form-control",placeholder:"Code",required: true %>
     </div>
+
     <br>
     <div class="field form-group">
       <%= f.label :unit_price %><br />
-      <%= f.text_field :unit_price,class:"form-control",placeholder:"Unit Price", presence: true %>
+      <%= f.number_field :unit_price,class:"form-control",placeholder:"Unit Price", required: true,min: "0" %>
     </div>
+
     <div class="field form-group">
        <%= f.label :max_unit_limit %><br />
-      <%= f.text_field :max_unit_limit,class:"form-control",placeholder:"Max Unit Limit", presence: true, length: { minimum: 4 } %>
+      <%= f.number_field :max_unit_limit,class:"form-control",placeholder:"Max Unit Limit", required: true,min: "0" %>
     </div>
+
     <div class='field form-group'>
     <%= f.label :usage_value, class: 'col-form-label col-md-2' %><br />
-    <%= f.text_field :usage_value, class: 'form-control',placeholder:"Usage Value", presence: true, length: { minimum: 4 } %>
+    <%= f.number_field :usage_value, class: 'form-control',placeholder:"Usage Value", required: true,min: "0" %>
    </div>
+
    <br>
     <div class='field form-group'>
       <%= f.submit 'Add Feature' , class: 'btn btn-primary btn-sm',style:"background-color: #C84630"%>
+    </div>
 
   <% end %>
-  <%= link_to button_tag('Back', class:"btn btn-primary btn-sm ",style:"background-color: #C84630" ),plans_path %>
 
-  </div>
+<%= link_to button_tag('Back', class:"btn btn-primary btn-sm ",style:"background-color: #C84630" ),plans_path %>
+
   <br>
 </div>
