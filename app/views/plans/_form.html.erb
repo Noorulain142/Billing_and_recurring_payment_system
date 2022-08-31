@@ -14,7 +14,7 @@
 
     <div class="field form-group">
       <%= form.label :monthly_fee %>
-      <%= form.number_field :monthly_fee,class:"form-control" %>
+      <%= form.number_field :monthly_fee,class:"form-control",required: true,min: "0" %>
     </div>
 
     <div class="field form-group">

@@ -2,7 +2,7 @@
   <%=  form_for ([@plan, feature]),remote: true do |f| %>
     <div class="field form-group">
       <%= f.label :name %><br />
-      <%= f.text_field :name,class:"form-control",placeholder:"Name",required: true, length: { minimum: 4 } %>
+      <%= f.text_field :name,class:"form-control",placeholder:"Name",required: true %>
     </div>
 
     <div class="field form-group">
