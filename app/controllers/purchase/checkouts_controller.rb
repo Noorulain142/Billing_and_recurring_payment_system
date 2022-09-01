@@ -3,10 +3,9 @@
 module Purchase
   class CheckoutsController < ApplicationController
     before_action :authenticate_user!
+    before_action :set_plan, only: %i[create]
 
-    @@plan_obj_id = 0
     def create
-      @plan_obj = Plan.find(params[:plan_id])
       @@plan_obj_id = @plan_obj.id
       session = Stripe::Checkout::Session.create(
         customer: current_user.stripe_id,
@@ -41,5 +40,10 @@ module Purchase
       SubscriptionJob.set(wait: 30.days).perform_later(@name)
     end
 
+    private
+
+    def set_plan
+      @plan_obj = Plan.find(params[:plan_id])
+    end
   end
 end

@@ -26,8 +26,11 @@ class PlansController < ApplicationController
     @plan.product_id = product.id
     price = StripePlan::PriceCreator.call(@plan)
     @plan.price_id = price.id
-    @plan.save
-    redirect_to plan_url(@plan), allow_other_host: true
+    if @plan.save
+      redirect_to plan_url(@plan), allow_other_host: true
+    else
+      redirect_to request.referer, notice: 'Plan not created'
+    end
   end
 
   def update
