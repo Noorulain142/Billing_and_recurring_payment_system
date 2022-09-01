@@ -21,8 +21,6 @@ module Purchase
           price: @plan_obj.price_id
         }]
       )
-
-      session.class
       redirect_to session.url, allow_other_host: true
     end
 
@@ -41,7 +39,7 @@ module Purchase
       SubscriptionMailer.new_subscription_email(@customer).deliver
       @name = @customer.name
       SubscriptionJob.set(wait: 30.days).perform_later(@name)
-
     end
+
   end
 end

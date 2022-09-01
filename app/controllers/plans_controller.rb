@@ -23,13 +23,8 @@ class PlansController < ApplicationController
   def create
     @plan = Plan.new(plan_params)
     product = Stripe::Product.create({ name: @plan.name })
-    price = Stripe::Price.create({
-                                   unit_amount: @plan.monthly_fee,
-                                   currency: 'usd',
-                                   recurring: { interval: 'month' },
-                                   product: 'prod_MGg4N0AGxvjqSy'
-                                 })
     @plan.product_id = product.id
+    price = StripePlan::PriceCreator.call(@plan)
     @plan.price_id = price.id
     @plan.save
     redirect_to plan_url(@plan), allow_other_host: true
