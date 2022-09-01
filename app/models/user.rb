@@ -9,7 +9,6 @@ class User < ApplicationRecord
   has_one_attached :avatar
 
   validate :correct_image_type
-  # validates :avatar,blob: {content_type: ['image/png','image/jpg']}
 
   def avatar_thumbnail
     avatar.variant(resize: '150x150!').processed
