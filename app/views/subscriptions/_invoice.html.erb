@@ -1,9 +1,10 @@
 <h1> INVOICE </h1>
 <p>user:<%=@user.name%><p>
-<p>Plan name:<%=@plan.name%></p>
+<p>Plan:<%=@plan.name%></p>
 <p>monthly fee:<%=@plan.monthly_fee%><p>
-<p style="color:red">Bill:<%=bill(@plan)%><p>
-<p>Status:<%= @subs.status %><p>
+<p>Bill:<%=bill(@plan)%><p>
+<p style="color:red">Status:<%= @subs.status %><p>
 <p>Interval:<%= @subs.interval %><p>
 <p>Billing Day:<%= @subs.billing_day %><p>
+<p>User ID:<%=@sub.user.id%><p>
 <br>

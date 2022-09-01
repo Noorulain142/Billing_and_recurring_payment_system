@@ -21,6 +21,7 @@ module Purchase
         }]
       )
       redirect_to session.url, allow_other_host: true
+
     end
 
     def success
@@ -45,5 +46,6 @@ module Purchase
     def set_plan
       @plan_obj = Plan.find(params[:plan_id])
     end
+
   end
 end
