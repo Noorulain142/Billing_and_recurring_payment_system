@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class PlansController < ApplicationController
-  # before_action :set_user, only: [:index]
   before_action :set_plan, only: %i[show edit update destroy]
 
   def index

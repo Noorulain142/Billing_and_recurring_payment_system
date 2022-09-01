@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
 class SubscriptionsController < ApplicationController
-  before_action :set_subscription, only: %i[show update]
+  before_action :set_subscription, only: %i[show]
   before_action :set_user, only: %i[show]
   before_action :set_billing, only: %i[show index]
-  before_action :set_subscribed_user, only: %i[update show]
+  before_action :set_subscribed_user, only: %i[show]
 
   def index
     if Subscription.present?
@@ -13,8 +13,6 @@ class SubscriptionsController < ApplicationController
       redirect_to request.referer, notice: 'Subscription not found'
     end
   end
-
-  def update; end
 
   def show
     @user_buyer = User.where(usertype: 'Buyer')
