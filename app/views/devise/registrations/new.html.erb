@@ -28,7 +28,7 @@
         <%= f.password_field :password_confirmation,class:"form-control",placeholder:"Password Confirmation ",required: true, autocomplete: "new-password" %>
       </div>
       <div class="field form-group mt-3">
-      <%= f.file_field :avatar %>
+      <%= f.file_field :avatar,accept: 'image/*' %>
         <%image_tag(resource.avatar) if resource.avatar.attached?%>
       </div>
       <div class="actions mt-3 mb-3">
