@@ -18,10 +18,6 @@ class FeaturesController < ApplicationController
 
   def edit; end
 
-  # def show
-  #   render file: 'public/404.html', status: :not_found, layout: false
-  # end
-
   def create
     @feature = @plan.features.build(feature_params)
     authorize @feature
