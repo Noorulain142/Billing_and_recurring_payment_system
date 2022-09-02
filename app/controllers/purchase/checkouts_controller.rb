@@ -7,6 +7,9 @@ module Purchase
 
     def create
       @@plan_obj_id = @plan_obj.id
+      @user = current_user
+      # @stripe_user = current_user.stripe_id
+      # StripeCheckout::CheckoutCreator.call(@user,@plan_obj)
       session = Stripe::Checkout::Session.create(
         customer: current_user.stripe_id,
         client_reference_id: current_user.id,
@@ -28,16 +31,12 @@ module Purchase
       sub = Stripe::Subscription.retrieve(
         session.subscription
       )
-      Subscription.create!(plan_id: @@plan_obj_id, user_id: current_user.id, status: sub.status,
-                           current_period_start: sub.current_period_start,
-                           current_period_end: sub.current_period_end,
-                           interval: sub.items.data[0].plan.interval,
-                           customer_id: sub.customer, subscription_id: sub.id)
-
+      @user = current_user.id
+      @plan_obj = @@plan_obj_id
+      StripeCheckout::SubscriptionCreator.call(@plan_obj, sub, @user)
       @customer = Stripe::Customer.retrieve(session.customer)
       SubscriptionMailer.new_subscription_email(@customer).deliver
-      @name = @customer.name
-      SubscriptionJob.set(wait: 30.days).perform_later(@name)
+      SubscriptionJob.set(wait: 30.days).perform_later(@customer.name)
     end
 
     private
