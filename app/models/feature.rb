@@ -6,7 +6,8 @@ class Feature < ApplicationRecord
   validates :name, :code, :unit_price, :max_unit_limit, :usage_value, presence: true
   validates :unit_price, :max_unit_limit, :usage_value,
             numericality: { only_integer: true, greater_than_or_equal_to: 0 }
-  validates :code, numericality: { only_integer: true }
+  validates :unit_price, :code,
+            numericality: { only_integer: true, greater_than: 0 }
 
   def over_use
     @use = Feature.find(id)
