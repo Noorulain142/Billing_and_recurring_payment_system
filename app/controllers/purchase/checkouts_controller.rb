@@ -8,21 +8,9 @@ module Purchase
     def create
       @@plan_obj_id = @plan_obj.id
       @user = current_user
-      # @stripe_user = current_user.stripe_id
-      # StripeCheckout::CheckoutCreator.call(@user,@plan_obj)
-      session = Stripe::Checkout::Session.create(
-        customer: current_user.stripe_id,
-        client_reference_id: current_user.id,
-        success_url: "#{root_url}success?session_id={CHECKOUT_SESSION_ID}",
-        cancel_url: pricing_url,
-        payment_method_types: ['card'],
-        mode: 'subscription',
-        customer_email: current_user.email,
-        line_items: [{
-          quantity: 1,
-          price: @plan_obj.price_id
-        }]
-      )
+      @root_url = "#{root_url}success?session_id={CHECKOUT_SESSION_ID}"
+      @pricing_url = pricing_url
+      session = StripeCheckout::CheckoutCreator.call(@user, @plan_obj, @root_url, @pricing_url)
       redirect_to session.url, allow_other_host: true
     end
 
