@@ -21,7 +21,6 @@ module Purchase
         }]
       )
       redirect_to session.url, allow_other_host: true
-
     end
 
     def success
@@ -38,7 +37,6 @@ module Purchase
       @customer = Stripe::Customer.retrieve(session.customer)
       SubscriptionMailer.new_subscription_email(@customer).deliver
       SubscriptionJob.set(wait: 30.days).perform_later(@customer)
-     
     end
 
     private
@@ -46,6 +44,5 @@ module Purchase
     def set_plan
       @plan_obj = Plan.find(params[:plan_id])
     end
-
   end
 end
