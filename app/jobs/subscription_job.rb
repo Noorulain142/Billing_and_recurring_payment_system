@@ -3,7 +3,7 @@
 class SubscriptionJob < ApplicationJob
   queue_as :default
 
-  def perform(name)
-    SubscriptionMailer.billing_mail(name).deliver
+  def perform(customer)
+    SubscriptionMailer.billing_mail(customer).deliver
   end
 end

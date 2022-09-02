@@ -7,8 +7,8 @@ class SubscriptionMailer < ApplicationMailer
     mail(to: customer.email, subject: 'You got a new subscription!')
   end
 
-  def billing_mail(name)
-    @name = name
-    mail(to: current_user.email, subject: 'Your Monthly Bill!')
+  def billing_mail(customer)
+    @customer = customer
+    mail(to: customer.email, subject: 'Your Monthly Bill!')
   end
 end
