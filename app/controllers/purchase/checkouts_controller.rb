@@ -36,7 +36,8 @@ module Purchase
 
       @customer = Stripe::Customer.retrieve(session.customer)
       SubscriptionMailer.new_subscription_email(@customer).deliver
-      SubscriptionJob.set(wait: 30.days).perform_later(@customer)
+      @name = @customer.name
+      SubscriptionJob.set(wait: 30.days).perform_later(@name)
     end
 
     private

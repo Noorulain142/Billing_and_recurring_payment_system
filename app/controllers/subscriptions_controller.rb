@@ -20,9 +20,7 @@ class SubscriptionsController < ApplicationController
       @plan = Plan.find(params[:plan_id])
 
     else
-      # byebug
       redirect_to root_path, notice: 'Record not found'
-
     end
   end
 
