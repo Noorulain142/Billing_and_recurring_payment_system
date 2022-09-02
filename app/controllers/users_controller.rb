@@ -6,5 +6,4 @@ class UsersController < ApplicationController
   def index
     @current_buyer = User.where(usertype: 'Buyer')
   end
-
 end
