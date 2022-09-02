@@ -4,11 +4,11 @@ Rails.application.routes.draw do
   devise_for :users
 
   resources :plans do
-    resources :features
+    resources :features ,except: [:show]
     patch 'plans/:plan_id/features/:id' => 'features#increase_count', as: 'inc_count'
   end
 
-  resources :users do
+  resources :users ,except: [:show] do
     resources :subscriptions
   end
 

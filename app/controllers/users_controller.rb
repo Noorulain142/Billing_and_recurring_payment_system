@@ -7,7 +7,4 @@ class UsersController < ApplicationController
     @current_buyer = User.where(usertype: 'Buyer')
   end
 
-  def show
-    render file: 'public/404.html', status: :not_found, layout: false
-  end
 end
