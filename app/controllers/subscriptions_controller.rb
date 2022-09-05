@@ -7,14 +7,6 @@ class SubscriptionsController < ApplicationController
   before_action :set_subscribed_user, only: %i[show]
   before_action :set_stripe_key
 
-  def index
-    if Subscription.present?
-      @subs = Subscription.all
-    else
-      redirect_to request.referer, notice: 'Subscription not found'
-    end
-  end
-
   def show
     @user_buyer = User.where(usertype: 'Buyer')
     if current_user.subscriptions.pluck(:plan_id).include? params[:plan_id].to_i
@@ -38,7 +30,6 @@ class SubscriptionsController < ApplicationController
 
   def set_billing
     return if @subs.blank?
-
     @bill = @subs.created_at.to_date + 30.days
     @subs.update(billing_day: @bill)
   end

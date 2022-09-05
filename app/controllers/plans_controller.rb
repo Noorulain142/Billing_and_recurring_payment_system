@@ -2,12 +2,13 @@
 
 class PlansController < ApplicationController
   before_action :set_plan, only: %i[show edit update destroy]
+  before_action :set_stripe_key
 
   def index
     if Plan.present?
       @plans = Plan.all
     else
-      redirect_to request.referer, notice: 'plan not found'
+      redirect_to request.referer, notice: 'No Plan Created Yet'
     end
   end
 
@@ -70,5 +71,9 @@ class PlansController < ApplicationController
 
   def plan_params
     params.require(:plan).permit(:monthly_fee, :name)
+  end
+
+  def set_stripe_key
+    Stripe.api_key = Rails.application.credentials.dig(:stripe, :secret_key)
   end
 end

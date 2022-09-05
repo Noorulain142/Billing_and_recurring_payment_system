@@ -4,14 +4,20 @@ module Purchase
   class CheckoutsController < ApplicationController
     before_action :authenticate_user!
     before_action :set_plan, only: %i[create]
-    after_action :set_subscription
+    before_action :set_subscription, only: %i[create success]
+    before_action :set_stripe_key
+
     def create
-        @@plan_obj_id = @plan_obj.id
-        @user = current_user
-        @root_url = "#{root_url}purchase/checkouts/success?session_id={CHECKOUT_SESSION_ID}"
-        @pricing_url = pricing_url
+      @@plan_obj_id = @plan_obj.id
+      @user = current_user
+      @root_url = "#{root_url}purchase/checkouts/success?session_id={CHECKOUT_SESSION_ID}"
+      @pricing_url = pricing_url
+      if StripeCheckout::CheckoutCreator.call(@user, @plan_obj, @root_url, @pricing_url)
         session = StripeCheckout::CheckoutCreator.call(@user, @plan_obj, @root_url, @pricing_url)
         redirect_to session.url, allow_other_host: true
+      else
+        redirect_to root_path
+      end
     end
 
     def success
@@ -23,9 +29,13 @@ module Purchase
       @user = current_user.id
       @plan_obj = @@plan_obj_id
       StripeCheckout::SubscriptionCreator.call(@plan_obj, sub, @user)
-      @customer = Stripe::Customer.retrieve(session.customer)
-      SubscriptionMailer.new_subscription_email(@customer).deliver
-      SubscriptionJob.set(wait: 30.days).perform_later(@customer.name)
+      if sub.status == 'active'
+        @customer = Stripe::Customer.retrieve(session.customer)
+        SubscriptionMailer.new_subscription_email(@customer).deliver
+        SubscriptionJob.set(wait: 30.days).perform_later(@customer.name)
+      else
+        redirect_to root_path
+      end
     end
 
     private
@@ -37,6 +47,10 @@ module Purchase
     def set_subscription
       @subscription = current_user.subscriptions
       authorize @subscription
+    end
+
+    def set_stripe_key
+      Stripe.api_key = Rails.application.credentials.dig(:stripe, :secret_key)
     end
   end
 end
