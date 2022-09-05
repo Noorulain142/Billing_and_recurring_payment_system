@@ -3,7 +3,6 @@
 class FeaturesController < ApplicationController
   before_action :set_plan
   before_action :find_feature, only: %i[destroy edit update increase_count]
-
   def index
     if @plan.features.present?
       @features = @plan.features.all
@@ -33,12 +32,8 @@ class FeaturesController < ApplicationController
       @feature.update!(usage_value: @feature.usage_value += 1) # transaction block
       @feature.update(over_use: @use)
     end
-    if @feature.usage_value > @feature.max_unit_limit
-      @use = @feature.over_use
-      redirect_to request.referer, notice: 'Feature Over Used'
-    else
-      redirect_to request.referer
-    end
+    @use = @feature.over_use
+    redirect_to request.referer
   rescue ActiveRecord::RecordInvalid
     flash[:notice] = @feature.errors.full_messages.to_sentence.to_s
   end
@@ -74,4 +69,5 @@ class FeaturesController < ApplicationController
   def feature_params
     params.require(:feature).permit(:name, :code, :unit_price, :max_unit_limit, :usage_value, :over_use)
   end
+
 end

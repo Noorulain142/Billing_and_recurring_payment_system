@@ -4,7 +4,7 @@ module Purchase
   class CheckoutsController < ApplicationController
     before_action :authenticate_user!
     before_action :set_plan, only: %i[create]
-
+    after_action :set_subscription
     def create
         @@plan_obj_id = @plan_obj.id
         @user = current_user
@@ -20,8 +20,6 @@ module Purchase
         session.subscription
       )
 
-
-      authorize sub
       @user = current_user.id
       @plan_obj = @@plan_obj_id
       StripeCheckout::SubscriptionCreator.call(@plan_obj, sub, @user)
@@ -34,7 +32,11 @@ module Purchase
 
     def set_plan
       @plan_obj = Plan.find(params[:plan_id])
-      # authorize
+    end
+
+    def set_subscription
+      @subscription = current_user.subscriptions
+      authorize @subscription
     end
   end
 end
