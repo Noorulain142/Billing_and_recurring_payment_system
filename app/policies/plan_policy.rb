@@ -25,6 +25,10 @@ class PlanPolicy < ApplicationPolicy
     admin?
   end
 
+  def show?
+    !@user.eql? nil
+  end
+
   def edit?
     admin?
   end

@@ -6,12 +6,12 @@ module Purchase
     before_action :set_plan, only: %i[create]
 
     def create
-      @@plan_obj_id = @plan_obj.id
-      @user = current_user
-      @root_url = "#{root_url}success?session_id={CHECKOUT_SESSION_ID}"
-      @pricing_url = pricing_url
-      session = StripeCheckout::CheckoutCreator.call(@user, @plan_obj, @root_url, @pricing_url)
-      redirect_to session.url, allow_other_host: true
+        @@plan_obj_id = @plan_obj.id
+        @user = current_user
+        @root_url = "#{root_url}purchase/checkouts/success?session_id={CHECKOUT_SESSION_ID}"
+        @pricing_url = pricing_url
+        session = StripeCheckout::CheckoutCreator.call(@user, @plan_obj, @root_url, @pricing_url)
+        redirect_to session.url, allow_other_host: true
     end
 
     def success
@@ -19,6 +19,9 @@ module Purchase
       sub = Stripe::Subscription.retrieve(
         session.subscription
       )
+
+
+      authorize sub
       @user = current_user.id
       @plan_obj = @@plan_obj_id
       StripeCheckout::SubscriptionCreator.call(@plan_obj, sub, @user)
@@ -31,6 +34,7 @@ module Purchase
 
     def set_plan
       @plan_obj = Plan.find(params[:plan_id])
+      # authorize
     end
   end
 end

@@ -8,7 +8,7 @@ class Plan < ApplicationRecord
   validates :name, :monthly_fee, presence: true
   validates :monthly_fee, numericality: { only_integer: true, greater_than: 0 }
 
-  def find_user
-    @subscribed_users = users.all
-  end
+  # def find_user
+  #   @subscribed_users = users.all
+  # end
 end

@@ -44,7 +44,6 @@ class FeaturesController < ApplicationController
   end
 
   def update
-    authorize @feature
     if @feature.update(feature_params)
       redirect_to @plan, notice: 'Feature was successfully updated.'
     else
@@ -54,7 +53,6 @@ class FeaturesController < ApplicationController
   end
 
   def destroy
-    authorize @feature
     if @feature.destroy
       redirect_to @plan, notice: 'Feature was successfully destroyed.'
     else
@@ -70,6 +68,7 @@ class FeaturesController < ApplicationController
 
   def find_feature
     @feature = Feature.find(params[:id])
+    authorize @feature
   end
 
   def feature_params

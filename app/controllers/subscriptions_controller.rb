@@ -19,7 +19,6 @@ class SubscriptionsController < ApplicationController
     @user_buyer = User.where(usertype: 'Buyer')
     if current_user.subscriptions.pluck(:plan_id).include? params[:plan_id].to_i
       @plan = Plan.find(params[:plan_id])
-
     else
       redirect_to root_path, notice: 'Record not found'
     end
@@ -29,15 +28,12 @@ class SubscriptionsController < ApplicationController
 
   def set_subscription
     @subs = Subscription.find(params[:id])
+    authorize @subs
   end
 
   def set_user
     @user = User.find(params[:user_id])
-    if @user.id == current_user.id
-      @user
-    else
-      redirect_to root_path, notice: 'user not authorized '
-    end
+    authorize @user, :setting_subscribed_user
   end
 
   def set_billing

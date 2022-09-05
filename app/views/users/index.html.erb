@@ -12,7 +12,7 @@
       </tr>
     </thead>
     <tbody>
-      <% if @current_buyer.present? %>
+      <% if policy(@current_buyer).current_buyer? %>
         <% if policy(current_user).admin?%>
           <%= render 'current_buyer' %>
         <%else%>

@@ -21,6 +21,7 @@ class PlansController < ApplicationController
 
   def create
     @plan = Plan.new(plan_params)
+    authorize @plan
     product = Stripe::Product.create({ name: @plan.name })
     @plan.product_id = product.id
     price = StripePlan::PriceCreator.call(@plan)
@@ -33,7 +34,6 @@ class PlansController < ApplicationController
   end
 
   def update
-    authorize @plan
     if @plan.update(plan_params)
       redirect_to plan_url(@plan), notice: 'Plan was successfully updated.'
     else
@@ -42,7 +42,6 @@ class PlansController < ApplicationController
   end
 
   def destroy
-    authorize @plan
     if @plan.destroy
       redirect_to plans_url, notice: 'Plan was successfully destroyed.'
     else
@@ -50,18 +49,19 @@ class PlansController < ApplicationController
     end
   end
 
-  def users
-    if @plan.find_user
-      @subscribed_users = @plan.find_user
-    else
-      redirect_to request.referer, notice: 'User not found'
-    end
-  end
+  # def users
+  #   if @plan.find_user
+  #     @subscribed_users = @plan.find_user
+  #   else
+  #     redirect_to request.referer, notice: 'User not found'
+  #   end
+  # end
 
   private
 
   def set_plan
     @plan = Plan.find(params[:id])
+    authorize @plan
   end
 
   def set_user

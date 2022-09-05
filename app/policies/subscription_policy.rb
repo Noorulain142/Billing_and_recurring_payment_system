@@ -14,6 +14,18 @@ class SubscriptionPolicy < ApplicationPolicy
   end
 
   def show?
-    return true if user.id.in?(@record.user_ids)
+    return true if @user.id == @record.user.id
+  end
+
+  def index?
+    buyer?
+  end
+
+  def create?
+    buyer?
+  end
+
+  def success?
+    buyer?
   end
 end

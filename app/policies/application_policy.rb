@@ -8,6 +8,10 @@ class ApplicationPolicy
     @record = record
   end
 
+  def current_buyer?
+    @current_buyer = User.where(usertype: 'Buyer')
+  end
+
   def admin?
     @user.usertype == 'Admin'
   end

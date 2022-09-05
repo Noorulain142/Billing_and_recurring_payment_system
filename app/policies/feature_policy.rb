@@ -32,4 +32,8 @@ class FeaturePolicy < ApplicationPolicy
   def destroy?
     admin?
   end
+
+  def increase_count?
+    admin?
+  end
 end

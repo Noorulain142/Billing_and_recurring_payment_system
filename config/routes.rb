@@ -17,14 +17,11 @@ Rails.application.routes.draw do
   end
 
   namespace :purchase do
-    # resources :checkouts, only: %i[ success]
     resources :checkouts do
-      get 'success', on: :member
+      collection do
+        get :success
+      end
     end
-    # member do
-    # member :success
-    #   get 'success'
-    # end
   end
 
   unauthenticated do
@@ -34,6 +31,5 @@ Rails.application.routes.draw do
     root to: 'plans#index'
   end
 
-  get 'success', to: 'purchase/checkouts#success'
   get '*path', to: 'application#routing_error'
 end
