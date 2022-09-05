@@ -17,7 +17,14 @@ Rails.application.routes.draw do
   end
 
   namespace :purchase do
-    resources :checkouts
+    # resources :checkouts, only: %i[ success]
+    resources :checkouts do
+      get 'success', on: :member
+    end
+    # member do
+    # member :success
+    #   get 'success'
+    # end
   end
 
   unauthenticated do

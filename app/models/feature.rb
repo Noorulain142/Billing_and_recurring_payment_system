@@ -9,8 +9,9 @@ class Feature < ApplicationRecord
   validates :unit_price, :code,
             numericality: { only_integer: true, greater_than: 0 }
 
+  # clean code
   def over_use
-    @use = Feature.find(id)
-    return @over_use = (usage_value - max_unit_limit) * unit_price if usage_value > max_unit_limit
+    Feature.find(id)
+    return (usage_value - max_unit_limit) * unit_price if usage_value > max_unit_limit
   end
 end

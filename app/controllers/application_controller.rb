@@ -5,7 +5,6 @@ class ApplicationController < ActionController::Base
   include Pagy::Backend
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
   before_action :authenticate_user!
-  before_action :set_stripe_key
   before_action :configure_permitted_parameters, if: :devise_controller?
   rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
 
@@ -29,10 +28,6 @@ class ApplicationController < ActionController::Base
 
   def user_not_authorized
     redirect_to(request.referer || user_root_path, notice: 'You are not authorized to perform this action.')
-  end
-
-  def set_stripe_key
-    Stripe.api_key = Rails.application.credentials.dig(:stripe, :secret_key)
   end
 
   def record_not_found

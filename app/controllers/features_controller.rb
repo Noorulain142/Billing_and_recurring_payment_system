@@ -29,14 +29,18 @@ class FeaturesController < ApplicationController
   end
 
   def increase_count
-    @feature.update!(usage_value: @feature.usage_value += 1)
-    @feature.update(over_use: @use)
+    ActiveRecord::Base.transaction do
+      @feature.update!(usage_value: @feature.usage_value += 1) # transaction block
+      @feature.update(over_use: @use)
+    end
     if @feature.usage_value > @feature.max_unit_limit
       @use = @feature.over_use
       redirect_to request.referer, notice: 'Feature Over Used'
     else
       redirect_to request.referer
     end
+  rescue ActiveRecord::RecordInvalid
+    flash[:notice] = @feature.errors.full_messages.to_sentence.to_s
   end
 
   def update

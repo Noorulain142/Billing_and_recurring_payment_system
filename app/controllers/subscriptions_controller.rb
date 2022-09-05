@@ -5,6 +5,7 @@ class SubscriptionsController < ApplicationController
   before_action :set_user, only: %i[show]
   before_action :set_billing, only: %i[show index]
   before_action :set_subscribed_user, only: %i[show]
+  before_action :set_stripe_key
 
   def index
     if Subscription.present?
@@ -53,5 +54,9 @@ class SubscriptionsController < ApplicationController
 
   def set_subscribed_user
     @sub = Subscription.find_by(user_id: params[:user_id])
+  end
+
+  def set_stripe_key
+    Stripe.api_key = Rails.application.credentials.dig(:stripe, :secret_key)
   end
 end
