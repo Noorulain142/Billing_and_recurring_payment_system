@@ -16,7 +16,7 @@ module Purchase
         session = StripeCheckout::CheckoutCreator.call(@user, @plan_obj, @root_url, @pricing_url)
         redirect_to session.url, allow_other_host: true
       else
-        redirect_to root_path
+        redirect_to root_path ,notice: 'session parameters missing'
       end
     end
 
@@ -34,7 +34,7 @@ module Purchase
         SubscriptionMailer.new_subscription_email(@customer).deliver
         SubscriptionJob.set(wait: 30.days).perform_later(@customer.name)
       else
-        redirect_to root_path
+        redirect_to root_path,notice: 'subscription was not successful'
       end
     end
 
