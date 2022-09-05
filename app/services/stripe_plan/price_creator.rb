@@ -14,7 +14,7 @@ module StripePlan
                              unit_amount: plan.monthly_fee,
                              currency: 'usd',
                              recurring: { interval: 'month' },
-                             product: @plan.product_id
+                             product: plan.product_id
                            })
     end
   end

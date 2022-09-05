@@ -50,14 +50,6 @@ class PlansController < ApplicationController
     end
   end
 
-  # def users
-  #   if @plan.find_user
-  #     @subscribed_users = @plan.find_user
-  #   else
-  #     redirect_to request.referer, notice: 'User not found'
-  #   end
-  # end
-
   private
 
   def set_plan
