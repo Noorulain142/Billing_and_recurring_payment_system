@@ -3,6 +3,7 @@
 class FeaturesController < ApplicationController
   before_action :set_plan
   before_action :find_feature, only: %i[destroy edit update increase_count]
+
   def index
     if @plan.features.present?
       @features = @plan.features.all
