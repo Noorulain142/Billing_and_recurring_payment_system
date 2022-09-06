@@ -12,7 +12,8 @@ module Purchase
       @user = current_user
       @root_url = "#{root_url}purchase/checkouts/success?session_id={CHECKOUT_SESSION_ID}"
       @pricing_url = pricing_url
-      if StripeCheckout::CheckoutCreator.call(@user, @plan_obj, @root_url, @pricing_url)
+      if @user.present? && @@plan_obj_id.present?
+      # if StripeCheckout::CheckoutCreator.call(@user, @plan_obj, @root_url, @pricing_url)
         session = StripeCheckout::CheckoutCreator.call(@user, @plan_obj, @root_url, @pricing_url)
         redirect_to session.url, allow_other_host: true
       else
