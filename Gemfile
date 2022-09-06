@@ -84,3 +84,9 @@ gem 'table_print'
 gem 'tether-rails'
 gem 'twitter-bootstrap-rails'
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
+gem 'rspec-rails'
+gem 'factory_bot_rails'
+gem 'shoulda-matchers', '~> 5.1'
+gem 'shoulda-callback-matchers', '~> 1.1', '>= 1.1.4'
+gem 'simplecov', require: false
+gem 'faker'
