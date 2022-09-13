@@ -73,8 +73,8 @@ RSpec.describe Purchase::CheckoutsController, type: :controller do
   end
 
   describe '#successful_subscription' do
-    context 'when session status is active' do
-      
+    context 'when session is created' do
+
       let( :stripe_mock ){ StripeMock.create_test_helper }
       it 'will allow successfu subscription' do
         StripeMock.start
