@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 RSpec.describe Plan, type: :model do
   describe 'associations' do
@@ -28,5 +30,4 @@ RSpec.describe Plan, type: :model do
       end
     end
   end
-
 end

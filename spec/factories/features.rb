@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 FactoryBot.define do
   factory :feature do
     name { Faker::Name.unique.name }
@@ -44,6 +46,4 @@ FactoryBot.define do
   trait :less_than_zero_feature_code do
     code { -1 }
   end
-
-
 end

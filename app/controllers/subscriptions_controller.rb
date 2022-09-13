@@ -30,6 +30,7 @@ class SubscriptionsController < ApplicationController
 
   def set_billing
     return if @subs.blank?
+
     @bill = @subs.created_at.to_date + 30.days
     @subs.update(billing_day: @bill)
   end

@@ -1,10 +1,12 @@
+# frozen_string_literal: true
+
 FactoryBot.define do
   factory :user do
     sequence(:id)
     name { Faker::Name.unique.name }
     email { Faker::Internet.email }
     password { Faker::Internet.password(min_length: 6) }
-    avatar {fixture_file_upload(Rails.root.join('spec/fixtures/dp3.png'))}
+    avatar { fixture_file_upload(Rails.root.join('spec/fixtures/dp3.png')) }
   end
 
   trait :Buyer do
@@ -16,11 +18,10 @@ FactoryBot.define do
   end
 
   trait :valid_avatar do
-    avatar {fixture_file_upload(Rails.root.join('spec/fixtures/dp3.png'), 'image/png')}
+    avatar { fixture_file_upload(Rails.root.join('spec/fixtures/dp3.png'), 'image/png') }
   end
 
   trait :invalid_avatar do
-    avatar {fixture_file_upload(Rails.root.join('spec/fixtures/Alchemist.webp'), 'image/webp')}
+    avatar { fixture_file_upload(Rails.root.join('spec/fixtures/Alchemist.webp'), 'image/webp') }
   end
-
 end

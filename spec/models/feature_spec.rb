@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe Feature, type: :model do
-  let(:user1) {create(:user)}
-  let(:plan1) {create(:plan)}
+  let(:user1) { create(:user) }
+  let(:plan1) { create(:plan) }
 
   describe 'associations' do
     it { is_expected.to belong_to(:plan) }
@@ -10,7 +12,6 @@ RSpec.describe Feature, type: :model do
 
   describe 'validations' do
     context 'positive validations' do
-
       it { is_expected.to validate_presence_of(:name) }
       it { is_expected.to validate_presence_of(:code) }
       it { is_expected.to validate_presence_of(:unit_price) }
@@ -23,7 +24,6 @@ RSpec.describe Feature, type: :model do
     end
 
     context 'negative validations' do
-
       it 'is not valid without feature_name' do
         feature = build(:feature, :blank_feature_name)
         expect(feature).to_not be_valid
@@ -66,15 +66,13 @@ RSpec.describe Feature, type: :model do
         feature = build(:feature, :less_than_zero_feature_code)
         expect(feature).to_not be_valid
       end
-
     end
   end
 
   describe '#over_use' do
     it 'should return the overuse of feature' do
       feature = create(:feature)
-      expect(feature.over_use).to  eq(1)
+      expect(feature.over_use).to eq(1)
     end
   end
-
 end

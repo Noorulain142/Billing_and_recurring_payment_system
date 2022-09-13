@@ -1,8 +1,9 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
-
-  let(:user1) {create(:user)}
+  let(:user1) { create(:user) }
   describe 'associations' do
     it { is_expected.to have_many(:subscriptions).dependent(:destroy) }
     it { is_expected.to have_many(:plans).through(:subscriptions) }
@@ -23,5 +24,4 @@ RSpec.describe User, type: :model do
       end
     end
   end
-
 end

@@ -39,7 +39,7 @@ class PlansController < ApplicationController
       redirect_to plan_url(@plan), notice: 'Plan was successfully updated.'
     else
       render :edit
-      flash.now[:notice]='Plan was not successfully updated.'
+      flash.now[:notice] = 'Plan was not successfully updated.'
     end
   end
 
@@ -48,7 +48,7 @@ class PlansController < ApplicationController
       redirect_to plans_url, notice: 'Plan was successfully destroyed.'
     else
       render :new
-      flash.now[:notice]='Plan was not successfully deleted.'
+      flash.now[:notice] = 'Plan was not successfully deleted.'
 
     end
   end
