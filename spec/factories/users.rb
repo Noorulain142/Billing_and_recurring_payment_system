@@ -15,6 +15,10 @@ FactoryBot.define do
     usertype { 'Admin' }
   end
 
+  trait :valid_avatar do
+    avatar {fixture_file_upload(Rails.root.join('spec/fixtures/dp3.png'), 'image/png')}
+  end
+
   trait :invalid_avatar do
     avatar {fixture_file_upload(Rails.root.join('spec/fixtures/Alchemist.webp'), 'image/webp')}
   end

@@ -5,4 +5,17 @@ FactoryBot.define do
     monthly_fee { 500 }
 
   end
+
+  trait :blank_plan_name do
+    name { nil }
+  end
+
+  trait :blank_plan_monthly_fee do
+    monthly_fee { nil }
+  end
+
+  trait :less_than_zero_monthly_fee do
+    monthly_fee { -1 }
+  end
+
 end
