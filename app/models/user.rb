@@ -15,7 +15,6 @@ class User < ApplicationRecord
 
   def correct_image_type
     return unless avatar.attached?
-
     errors[:base] << 'you tried uploading wrong file' unless avatar.content_type.in?(%w[image/png image/jpg])
   end
 end

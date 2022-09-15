@@ -21,6 +21,8 @@ RSpec.describe User, type: :model do
       it 'Image is invalid as its type invalid(svg)' do
         user = build(:user, :invalid_avatar)
         expect(user).to_not be_valid
+        expect { raise 'you tried uploading wrong file' }.to raise_error
+        # expect(response.body).to include('you tried uploading wrong file')
       end
     end
   end
