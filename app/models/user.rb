@@ -8,17 +8,13 @@ class User < ApplicationRecord
   has_many :plans, through: :subscriptions
   has_one_attached :avatar
 
+  validates :avatar, presence: true
   validate :correct_image_type
-
-  def avatar_thumbnail
-    avatar.variant(resize: '150x150!').processed
-  end
 
   private
 
   def correct_image_type
     return unless avatar.attached?
-
-    errors[:base] << 'you tried uploading wrong file' unless avatar.content_type.in?(%w[image/png image/jpeg])
+    errors[:base] << 'you tried uploading wrong file' unless avatar.content_type.in?(%w[image/png image/jpg])
   end
 end

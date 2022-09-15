@@ -47,6 +47,14 @@ gem 'bootsnap', '>= 1.1.0', require: false
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
+  gem 'factory_bot_rails'
+  gem 'faker'
+  gem 'rspec-rails'
+  gem 'rspec-stripe'
+  gem 'shoulda-callback-matchers', '~> 1.1', '>= 1.1.4'
+  gem 'shoulda-matchers', '~> 5.1'
+  gem 'simplecov', require: false
+  gem 'stripe-ruby-mock', '~> 2.5.0'
   gem 'webdrivers'
 end
 
@@ -62,6 +70,7 @@ end
 group :test do
   # Adds support for Capybara system testing and selenium driver
   gem 'capybara', '>= 2.15'
+  gem 'rails-controller-testing'
   gem 'selenium-webdriver'
   # Easy installation and use of chromedriver to run system tests with Chrome
   # gem 'chromedriver-helper'
@@ -80,13 +89,9 @@ gem 'pundit', '~> 2.2'
 gem 'sidekiq'
 gem 'simple_form'
 gem 'stripe'
+gem 'stripe-ruby-mock', '~> 2.5.0', require: 'stripe_mock'
 gem 'table_print'
 gem 'tether-rails'
 gem 'twitter-bootstrap-rails'
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
-gem 'rspec-rails'
-gem 'factory_bot_rails'
-gem 'shoulda-matchers', '~> 5.1'
-gem 'shoulda-callback-matchers', '~> 1.1', '>= 1.1.4'
-gem 'simplecov', require: false
-gem 'faker'
+# gem 'rails-controller-testing

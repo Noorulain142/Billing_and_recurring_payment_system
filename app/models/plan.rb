@@ -7,5 +7,4 @@ class Plan < ApplicationRecord
 
   validates :name, :monthly_fee, presence: true
   validates :monthly_fee, numericality: { only_integer: true, greater_than: 0 }
-
 end
